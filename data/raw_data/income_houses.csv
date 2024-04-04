@@ -1,0 +1,78 @@
+﻿"Total family income and characteristics of residential property owners by family type 1 2 3 4 5"
+"Frequency: Annual"
+"Table: 46-10-0051-01"
+"Release date: 2023-12-08"
+"Geography: Province or territory, Census subdivision, Census metropolitan area, Census agglomeration, Census metropolitan area part, Census agglomeration part"
+""
+""
+
+,"Estimates 5","Number of property owners 2 6 7 8",,,,,,,,"Proportion of owners by family type 2 6",,,,,,,,"Median of total assessment value 9 10 11",,,,,,,,"Median total family income 11 12 13",,,,,,,
+"Geography 3","Family type 14","2018","Symbol","2019","Symbol","2020","Symbol","2021","Symbol","2018","Symbol","2019","Symbol","2020","Symbol","2021","Symbol","2018","Symbol","2019","Symbol","2020","Symbol","2021","Symbol","2018","Symbol","2019","Symbol","2020","Symbol","2021","Symbol"
+,,"Number",,,,,,,,"Percent",,,,,,,,"Dollars",,,,,,,,,,,,,,,
+"St. John's, Census metropolitan area (CMA) 15","Total, all family categories","","..","","..","79,925","A","80,720","A","","..","","..","100.0","A","100.0","A","","..","","..","310,000","A","311,000","A","","..","","..","120,000","A","120,000","A"
+,"Couple family","","..","","..","64,200","A","64,570","A","","..","","..","80.3","A","80.0","A","","..","","..","319,000","A","321,000","A","","..","","..","135,000","A","135,000","A"
+,"Lone-parent family","","..","","..","4,015","A","4,090","A","","..","","..","5.0","A","5.1","A","","..","","..","282,000","A","284,000","A","","..","","..","80,000","A","80,000","A"
+"Prince Edward Island","Total, all family categories","","..","","..","","..","53,870","E","","..","","..","","..","100.0","A","","..","","..","","..","173,000","A","","..","","..","","..","100,000","A"
+,"Couple family","","..","","..","","..","43,490","E","","..","","..","","..","80.7","A","","..","","..","","..","183,000","A","","..","","..","","..","110,000","A"
+,"Lone-parent family","","..","","..","","..","2,600","E","","..","","..","","..","4.8","A","","..","","..","","..","146,000","A","","..","","..","","..","75,000","A"
+"Nova Scotia","Total, all family categories","","..","367,770","","369,235","A","375,230","A","100.0","","100.0","","100.0","A","100.0","A","198,000","","198,000","","200,000","A","204,000","A","85,000","","90,000","","90,000","A","95,000","A"
+,"Couple family","","..","289,740","","290,870","A","294,705","A","79.3","","78.8","","78.8","A","78.5","A","210,000","","211,000","","213,000","A","218,000","A","100,000","","100,000","","105,000","A","110,000","A"
+,"Lone-parent family","","..","19,140","","18,835","A","19,245","A","5.2","","5.2","","5.1","A","5.1","A","160,000","","160,000","","162,000","A","164,000","A","60,000","","65,000","","65,000","A","70,000","A"
+"New Brunswick","Total, all family categories","","..","335,290","","326,040","A","326,610","A","","..","100.0","","100.0","A","100.0","A","","..","148,000","","153,000","A","155,000","A","","..","85,000","","85,000","A","90,000","A"
+,"Couple family","","..","262,165","","256,110","A","256,200","A","","..","78.2","","78.6","A","78.4","A","","..","158,000","","162,000","A","164,000","A","","..","95,000","","100,000","A","105,000","A"
+,"Lone-parent family","","..","17,495","","16,785","A","16,895","A","","..","5.2","","5.2","A","5.2","A","","..","121,000","","127,000","A","128,000","A","","..","60,000","","60,000","A","65,000","A"
+"Ontario","Total, all family categories","","..","5,400,885","","5,406,205","A","5,503,535","A","100.0","","100.0","","100.0","A","100.0","A","428,000","","426,000","","425,000","A","423,000","A","100,000","","105,000","","110,000","A","115,000","A"
+,"Couple family","","..","4,376,745","","4,380,875","A","4,451,320","A","81.3","","81.0","","81.0","A","80.9","A","450,000","","448,000","","447,000","A","445,000","A","115,000","","120,000","","125,000","A","130,000","A"
+,"Lone-parent family","","..","263,830","","263,745","A","267,175","A","4.9","","4.9","","4.9","A","4.9","A","376,000","","374,000","","375,000","A","374,000","A","75,000","","80,000","","80,000","A","85,000","A"
+"Manitoba 16","Total, all family categories","","..","","..","392,995","B","410,750","B","","..","","..","100.0","A","100.0","A","","..","","..","293,000","A","303,000","A","","..","","..","100,000","A","105,000","A"
+,"Couple family","","..","","..","316,270","B","331,560","B","","..","","..","80.5","A","80.7","A","","..","","..","305,000","A","317,000","A","","..","","..","115,000","A","120,000","A"
+,"Lone-parent family","","..","","..","18,370","B","18,675","B","","..","","..","4.7","A","4.6","A","","..","","..","260,000","A","268,000","A","","..","","..","75,000","A","80,000","A"
+"Alberta","Total, all family categories","","..","","..","","..","1,373,025","E","","..","","..","","..","100.0","A","","..","","..","","..","400,000","A","","..","","..","","..","125,000","A"
+,"Couple family","","..","","..","","..","1,122,500","E","","..","","..","","..","81.8","A","","..","","..","","..","417,000","A","","..","","..","","..","135,000","A"
+,"Lone-parent family","","..","","..","","..","60,910","E","","..","","..","","..","4.4","A","","..","","..","","..","350,000","A","","..","","..","","..","85,000","A"
+"British Columbia","Total, all family categories","","..","1,786,750","","1,802,875","A","1,800,650","A","100.0","","100.0","","100.0","A","100.0","A","712,000","","758,000","","730,000","A","766,000","A","95,000","","100,000","","100,000","A","105,000","A"
+,"Couple family","","..","1,429,505","","1,442,120","A","1,438,320","A","80.1","","80.0","","80.0","A","79.9","A","760,000","","804,000","","773,000","A","814,000","A","110,000","","110,000","","115,000","A","120,000","A"
+,"Lone-parent family","","..","73,380","","74,345","A","73,530","A","4.1","","4.1","","4.1","A","4.1","A","626,000","","674,000","","649,000","A","686,000","A","70,000","","75,000","","80,000","A","85,000","A"
+"Yukon","Total, all family categories","","..","","..","9,555","E","9,845","E","","..","","..","100.0","A","100.0","A","","..","","..","249,000","A","251,000","A","","..","","..","145,000","A","145,000","A"
+,"Couple family","","..","","..","7,580","E","7,795","E","","..","","..","79.3","A","79.2","A","","..","","..","263,000","A","266,000","A","","..","","..","160,000","A","165,000","A"
+,"Lone-parent family","","..","","..","480","E","480","E","","..","","..","5.0","A","4.9","A","","..","","..","210,000","A","212,000","A","","..","","..","95,000","A","95,000","A"
+"Yellowknife, Census agglomeration (CA) 17","Total, all family categories","","..","5,680","A","5,700","A","5,775","A","","..","100.0","A","100.0","A","100.0","A","","..","385,000","A","386,000","A","387,000","A","","..","195,000","A","195,000","A","195,000","A"
+,"Couple family","","..","4,755","A","4,775","A","4,825","A","","..","83.7","A","83.8","A","83.6","A","","..","405,000","A","406,000","A","406,000","A","","..","210,000","A","210,000","A","215,000","A"
+,"Lone-parent family","","..","240","A","240","A","235","A","","..","4.2","A","4.2","A","4.1","A","","..","322,000","A","324,000","A","328,000","A","","..","130,000","A","130,000","A","130,000","A"
+"Nunavut 18","Total, all family categories","","..","","..","2,550","A","2,510","A","","..","","..","100.0","A","100.0","A","","..","","..","117,000","A","118,000","A","","..","","..","190,000","A","195,000","A"
+,"Couple family","","..","","..","2,045","A","2,000","A","","..","","..","80.2","A","79.7","A","","..","","..","119,000","A","119,000","A","","..","","..","225,000","A","220,000","A"
+,"Lone-parent family","","..","","..","200","A","215","A","","..","","..","7.8","A","8.6","A","","..","","..","115,000","A","115,000","A","","..","","..","115,000","A","115,000","A"
+
+Symbol legend:
+.., not available for a specific reference period
+E, use with caution
+A, data quality: excellent
+B, data quality: very good
+
+
+
+
+Footnotes:
+1,"The universe of this table is restricted to resident owners who are persons that filed their T1 tax return form in the previous year and occupied their residential property. An owner's geographic location is determined by the location of the occupied property. A residential property refers to all land and structures intended for private dwelling purposes, whether on a permanent or a temporary basis."
+2,""Property owner" refers to a person or an entity included in the classification of ‘business and government’ (such as corporations, governments, sole proprietorships and partnerships, and other legal types) that has a property title transferred to, recorded in, registered in or otherwise carried in their name. A property may have more than one owner, or an owner may have more than one property, therefore the count of owners and properties can differ."
+3,"The geographic boundaries used in this table are the 2016 census subdivisions boundaries."
+4,"Previous reference period estimates are subject to revision."
+5,"The Composite Quality Indicator (CQI) shown in this table is created by combining many individual quality indicators, each one representing the quality of different Canadian Housing Statistics Program (CHSP) data processing steps (for example: coding, geocoding, linkage and imputation) and includes the following values: A - Excellent: All domain variables and the variable of interest are of excellent quality. B - Very good: All domain variables and the variable of interest are of very good to excellent quality. C - Good: The quality of some of the domain variables or the variable of interest is considered good while all the other variables are of very good to excellent quality. D - Acceptable: The quality of some of the domain variables or the variable of interest is considered acceptable while all the other variables are of good to excellent quality. E - Use with caution: Several domain variables or the variable of interest are of poor quality. F - Too unreliable to be published. The CQIs are available starting with the reference period of 2020, except for the Northwest Territories where they are available from 2019 reference period."
+6,"Counts undergo random rounding, a process that transforms all raw counts into randomly rounded counts. This reduces the possibility of identifying property owners in the tabulations. All percentages are derived from rounded counts, subtotals and totals may not exactly equal the sum of components due to system rounding."
+7,"The number of property owners estimates are not available for the 2018 reference period."
+8,"The number of owners should be used with caution outside of census metropolitan areas (CMAs) and census agglomerations (CAs), as well as the proportion of owners by geography. This note does not apply to Nunavut."
+9,""Assessment value" refers to the assessed value of the property for the purposes of determining property taxes. It is important to note that the assessed value does not necessarily represent the market value. Given that different provinces and territories have their own assessment periods and durations of the valuation roll, it is difficult to make accurate comparisons of similar properties from one province or territory to another. For properties that are being utilized for both residential and non-residential purposes, only the residential portion's value has been taken into account. The reference years of the assessment values by province or territory are available here: <a href="https://www.statcan.gc.ca/en/statistical-programs/document/5257_D2_V6" rel="external noopener noreferrer" target="_blank">Canadian Housing Statistics Program (CHSP) 2021 (opens new window)</a>."
+10,""Total assessment value" represents the sum of the assessment values of all residential properties owned by an owner within a given province."
+11,"Averages and medians are calculated using values greater than zero for the variables of interest."
+12,""Total income of person" refers to the total income of the property owner, before deductions for income taxes, during the previous year. This income measure is the sum of market income and government transfers. Market income includes employment income, investment income, private retirement income and other income from market sources during the previous year. Government transfers refer to all cash benefits received from federal, provincial, territorial or municipal governments during the previous year."
+13,""Family total income" is the sum of the total incomes of all family members (see "Total income of person")."
+15,"Newfoundland and Labrador estimates are not available at the provincial level and for the category "Outside of census metropolitan areas (CMAs) and census agglomerations (CAs)"."
+16,"In Manitoba, the owners of 1.8% of residential properties were not identified in 2020. This percentage is reduced to just 0.1% in 2021. As a result, longitudinal comparison of the number of owners between 2020 and 2021 is not recommended."
+17,"Northwest Territories estimates are only available in the census agglomeration of Yellowknife."
+18,"For Nunavut, the property use indicator is not available, the universe of this table includes all resident owners who are persons. For owners with multiple properties, the geographic location is from the residential property with the highest assessment value."
+14,"Families are comprised of: 1) couples (married or common-law, including same-sex couples) living in the same dwelling with or without children, and 2) lone-parents (male or female) living with one or more children. Persons who are not matched to a family become persons not in census families. They may be living alone, with a family to whom they are related, with a family to whom they are unrelated or with other persons not in census families."
+
+
+
+"How to cite: Statistics Canada. Table 46-10-0051-01  Total family income and characteristics of residential property owners by family type"
+https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=4610005101

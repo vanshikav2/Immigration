@@ -1,0 +1,33 @@
+﻿"Household actual final consumption, Canada, provincial and territorial, annual (x 1,000,000) 1 2 3 4"
+"Frequency: Annual"
+"Table: 36-10-0609-01"
+"Release date: 2024-03-26"
+"Geography: Canada, Province or territory"
+""
+""
+
+,"Geography","Canada 5",,,,,,,,,,,,,,,
+"Estimates","Consumption category","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"
+"Household final consumption expenditure",,"Dollars",,,,,,,,,,,,,,,
+,"Total consumption","878,509.0","881,695.0","926,720.0","967,084.0","998,053.0","1,038,086.0","1,086,253.0","1,122,079.0","1,153,668.0","1,209,153.0","1,260,446.0","1,300,816.0","1,225,996.0","1,327,587.0","1,473,588.0","1,552,764.0"
+"Individual consumption expenditures of general governments 2",,"213,378.0","225,075.0","234,348.0","245,649.0","251,228.0","258,523.0","266,277.0","274,232.0","281,933.0","292,604.0","303,245.0","314,483.0","333,939.0","362,928.0","391,582.8","408,059.0"
+"Individual consumption expenditures of non-profit institutions serving households 3",,"23,937.0","22,968.0","22,899.0","24,666.0","25,553.0","26,429.0","26,826.0","28,575.0","30,951.0","31,910.0","33,716.0","35,372.0","35,791.0","37,142.0","39,661.0","42,654.1"
+"Household actual final consumption",,"1,115,824.0","1,129,738.0","1,183,967.0","1,237,399.0","1,274,834.0","1,323,038.0","1,379,356.0","1,424,886.0","1,466,552.0","1,533,667.0","1,597,407.0","1,650,671.0","1,595,726.0","1,727,657.0","1,904,831.8","2,003,477.1"
+
+Symbol legend:
+.., not available for a specific reference period
+
+
+
+
+Footnotes:
+1,"Other services include services such as those offered by political parties, labour and professional organizations, religious groups and organizations responsible for environmental protection."
+2,"Individual consumption expenditures of general governments, which is equivalent to social transfers in kind from general governments."
+3,"Individual consumption expenditures of non-profit institutions serving households (NPISH), which is equivalent to social transfers in kind from NPISH."
+4,"While some individual consumption expenditures of general governments and non-profit institutions serving households could potentially be allocated to the region of outside Canada (embassies and military bases), data sources currently don’t permit this."
+5,"Provincial and territorial data are not available for the last reference year.  Also note that Canada's and provincial/territorial totals do not correspond to the Provincial and territorial economic accounts (PTEA) at certain times of the year, notably after the PTEA's release, which is generally in November.  Estimates are brought back in line when data for Household actual final consumption (HAFC) are published, generally in March."
+
+
+
+"How to cite: Statistics Canada. Table 36-10-0609-01  Household actual final consumption, Canada, provincial and territorial, annual (x 1,000,000)"
+https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3610060901

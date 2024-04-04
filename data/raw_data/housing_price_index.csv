@@ -1,0 +1,53 @@
+﻿"New housing price index, annual weights 1 2 3 4 5"
+"Frequency: Annual"
+"Table: 18-10-0210-01 (formerly CANSIM 327-0057)"
+"Release date: 2024-02-21"
+"Geography: Canada, Census metropolitan area, Census agglomeration, Census metropolitan area part"
+""
+""
+
+"New housing price indexes","Total, house and land",,,,,,,,,,,,,,,
+"Geography","2017","Symbol","2018","Symbol","2019","Symbol","2020","Symbol","2021","Symbol","2022","Symbol","2023","Symbol","2024","Symbol"
+"Canada","100.00","","100.00","","100.00","","100.00","","100.00","","100.00","","100.00","","100.00",""
+"St. John's, Newfoundland and Labrador","1.16","","0.87","","0.68","","0.41","","0.31","","0.22","","0.23","","0.28",""
+"Charlottetown, Prince Edward Island","0.15","","0.18","","0.27","","0.14","","0.13","","0.12","","0.15","","0.18",""
+"Halifax, Nova Scotia","0.72","","0.71","","0.79","","0.81","","1.02","","1.10","","1.27","","1.26",""
+"Saint John, Fredericton and Moncton, New Brunswick","1.02","","0.87","","0.69","","0.47","","0.45","","0.45","","0.56","","0.51",""
+"Québec, Quebec","1.45","","1.34","","1.32","","0.49","","0.55","","0.60","","0.75","","0.70",""
+"Sherbrooke, Quebec","0.52","","0.47","","0.43","","0.18","","0.21","","0.21","","0.24","","0.22",""
+"Trois-Rivières, Quebec","0.30","","0.25","","0.25","","0.09","","0.10","","0.11","","0.14","","0.15",""
+"Montréal, Quebec","5.33","","5.16","","5.43","","3.51","","3.75","","3.88","","3.87","","3.11",""
+"Ottawa-Gatineau, Quebec part, Ontario/Quebec","0.78","","0.67","","0.72","","0.39","","0.45","","0.52","","0.50","","0.45",""
+"Ottawa-Gatineau, Ontario part, Ontario/Quebec","4.42","","4.65","","5.38","","4.42","","5.68","","7.02","","7.77","","7.80",""
+"Oshawa, Ontario","2.44","","2.51","","2.77","","1.37","","1.84","","3.41","","3.04","","3.04",""
+"Toronto, Ontario","25.49","","27.91","","29.06","","29.10","","24.32","","21.69","","21.75","","23.15",""
+"Hamilton, Ontario","2.85","","2.68","","2.55","","2.06","","2.25","","2.07","","1.86","","1.82",""
+"St. Catharines-Niagara, Ontario","1.56","","1.94","","2.19","","2.09","","2.52","","2.68","","2.89","","2.92",""
+"Kitchener-Cambridge-Waterloo, Ontario","1.75","","2.17","","2.22","","2.15","","2.56","","3.13","","3.08","","3.22",""
+"Guelph, Ontario","0.60","","0.68","","0.64","","0.68","","0.80","","0.72","","0.70","","0.54",""
+"London, Ontario","2.14","","2.38","","2.80","","2.08","","2.33","","3.13","","3.54","","3.44",""
+"Windsor, Ontario","1.15","","1.34","","1.35","","1.04","","1.08","","1.30","","1.39","","1.38",""
+"Greater Sudbury, Ontario","0.32","","0.30","","0.18","","0.13","","0.14","","0.18","","0.17","","0.18",""
+"Winnipeg, Manitoba","2.73","","2.72","","2.93","","2.22","","2.35","","2.38","","2.19","","2.08",""
+"Regina, Saskatchewan","1.25","","1.02","","0.88","","0.72","","0.57","","0.52","","0.50","","0.46",""
+"Saskatoon, Saskatchewan","2.23","","1.83","","1.48","","1.16","","1.02","","0.99","","1.04","","1.08",""
+"Calgary, Alberta","11.56","","9.52","","8.15","","7.83","","7.87","","8.40","","9.81","","10.86",""
+"Edmonton, Alberta","13.09","","11.69","","9.96","","7.30","","7.53","","6.96","","7.12","","7.15",""
+"Kelowna, British Columbia","1.54","","1.68","","1.73","","1.88","","1.89","","1.91","","2.03","","2.01",""
+"Vancouver, British Columbia","12.28","","13.03","","13.50","","25.11","","25.92","","23.79","","20.80","","19.53",""
+"Victoria, British Columbia","1.18","","1.46","","1.63","","2.16","","2.35","","2.51","","2.63","","2.46",""
+
+
+
+
+Footnotes:
+1,"This table replaces table 18-10-0054, which was archived with the release of January 2017 data."
+2,"Beginning in December 2016, the census metropolitan areas (CMAs) of Kelowna, Guelph, Trois-Rivières and Sherbrooke were added to the New Housing Price Index (NHPI) basket."
+3,"Beginning in December 2016, changes have been made to the New Housing Price Index (NHPI). Separate indexes are published for the census metropolitan areas (CMAs) of Toronto, Oshawa, Ottawa-Gatineau (Ontario part), Ottawa-Gatineau (Quebec part) and Greater Sudbury. The New Housing Price Index no longer includes Thunder Bay."
+4,"Starting in January 2020, the relative importance is calculated using a price-adjusted three-year average of the sales values of singles, semi-detached and row houses for each census metropolitan area. Prior to January 2020, the relative importance was calculated using the value of building completions."
+5,"This table partially replaces table 18100171 which has been archived."
+
+
+
+"How to cite: Statistics Canada. Table 18-10-0210-01  New housing price index, annual weights"
+https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1810021001
