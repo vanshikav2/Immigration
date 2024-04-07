@@ -19,7 +19,15 @@ bibliography: references.bib
 #| message: false
 
 library(tidyverse)
-library(palmerpenguins)
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+library(readxl)
+library(here)
+library(reshape2)
+
+consumption <- read.csv(here("data/analysis_data/consumption.csv"))
+merged_data <- read.csv(here("data/analysis_data/merged_data.csv"))
 ```
 
 
@@ -36,39 +44,123 @@ The remainder of this paper is structured as follows. @sec-data....
 Some of our data is of penguins (@fig-bills), from @palmerpenguins.
 
 ```{r}
-#| label: fig-bills
+#| label: fig-a
+#| fig-cap: Time Series Plot of GDP
+#| echo: false
+# Time Series Plot of GDP
+ggplot(merged_data, aes(x = Year, y = GDP)) +
+  geom_line() +
+  labs(
+       x = "Year",
+       y = "GDP")
+
+```
+```{r}
+#| label: fig-b
+#| fig-cap: Bills of penguins
+#| echo: false
+pairs(~ GDP + Total_Unique_Persons + Revenue + House_Price_Index + Consumption + 
+         Trade_Balance + Exports + Imports + Unemployment_rate + Inflation_Rate,
+      data = merged_data)
+
+```
+```{r}
+#| label: fig-c
 #| fig-cap: Bills of penguins
 #| echo: false
 
-ggplot(penguins, aes(x = island, fill = species)) +
-  geom_bar(alpha = 0.8) +
-  scale_fill_manual(values = c("darkorange","purple","cyan4"),
-                    guide = "none") +
-  theme_minimal() +
-  facet_wrap(~species, ncol = 1) +
-  coord_flip()
+correlation_matrix <- cor(merged_data[, c("GDP", "Total_Unique_Persons", "Revenue", "House_Price_Index", 
+                                    "Consumption", "Trade_Balance", "Exports", "Imports", 
+                                    "Unemployment_rate", "Inflation_Rate")])
+ggplot(melt(correlation_matrix), aes(Var1, Var2, fill = value)) +
+  geom_tile() +
+  scale_fill_gradient(low = "blue", high = "purple") +
+  labs(title = "Correlation Heatmap")
+
+```
+```{r}
+#| label: fig-d
+#| fig-cap: Bills of penguins
+#| echo: false
+# Line Plot of Key Variables
+ggplot(merged_data, aes(x = Year)) +
+  geom_line(aes(y = Total_Unique_Persons), color = "blue") +
+  geom_line(aes(y = Revenue), color = "red") +
+  geom_line(aes(y = House_Price_Index), color = "green") +
+  geom_line(aes(y = Consumption), color = "orange") +
+  labs(title = "Trends of Key Variables Over Time",
+       x = "Year",
+       y = "Value") +
+  scale_y_continuous(labels = scales::comma)
+
+```
+```{r}
+#| label: fig-i
+#| fig-cap: Bills of penguins
+#| echo: false
+
+ggplot(merged_data, aes(x = Year)) +
+  geom_line(aes(y = Unemployment_rate), color = "blue") +
+  geom_line(aes(y = Inflation_Rate), color = "red") +
+  labs(title = "Time Series Plot of Unemployment Rate and Inflation Rate",
+       x = "Year",
+       y = "Rate")
+
+```
+```{r}
+#| label: fig-h
+#| fig-cap: Bills of penguins
+#| echo: false
+
+ggplot(merged_data, aes(x = Trade_Balance, y = GDP)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of GDP by Trade Balance",
+       x = "Trade Balance",
+       y = "GDP")
+```
+```{r}
+#| label: fig-g
+#| fig-cap: Bills of penguins
+#| echo: false
+
+# Scatterplot for GDP vs Inflation
+ggplot(merged_data, aes(x = GDP, y = Inflation_Rate)) +
+  geom_point() +
+  labs(title = "Scatterplot of GDP vs Inflation",
+       x = "GDP",
+       y = "Inflation Rate")
+
+```
+```{r}
+#| label: fig-e
+#| fig-cap: Bills of penguins
+#| echo: false
+
+ggplot(merged_data, aes(x = Inflation_Rate, y = Total_Unique_Persons)) +
+  geom_point() +
+  labs(title = "Scatterplot of Inflation vs Total Unique Persons",
+       x = "Inflation Rate",
+       y = "Total Unique Persons")
+
+```
+```{r}
+#| label: fig-f
+#| fig-cap: Bills of penguins
+#| echo: false
+
+ggplot(merged_data, aes(x = Year)) +
+  geom_line(aes(y = Unemployment_rate), color = "blue") +
+  geom_line(aes(y = Inflation_Rate), color = "red") +
+  labs(title = "Time Series Plot of Unemployment Rate and Inflation Rate",
+       x = "Year",
+       y = "Rate")
+
 ```
 
 Talk more about it.
 
 And also planes (@fig-planes). (You can change the height and width, but don't worry about doing that until you have finished every other aspect of the paper - Quarto will try to make it look nice and the defaults usually work well once you have enough text.)
 
-```{r}
-#| label: fig-planes
-#| fig-cap: Relationship between wing length and width
-#| echo: false
-#| warning: false
-#| message: false
-
-analysis_data <- read_csv(here::here("data/analysis_data/analysis_data.csv"))
-
-analysis_data |> 
-  ggplot(aes(x = width, y = length)) +
-  geom_point(alpha = 0.8) +
-  theme_minimal() +
-  labs(x = "Wing width (mm)",
-       y = "Wing length (mm)")
-```
 
 Talk way more about it. 
 
@@ -76,36 +168,80 @@ Talk way more about it.
 
 # Model
 
-The goal of our modelling strategy is twofold. Firstly,...
-
-Here we briefly describe the Bayesian analysis model used to investigate... Background details and diagnostics are included in [Appendix -@sec-model-details].
+# Model 1
+The goal of our modeling strategy is to analyze the relationship between various economic indicators and the Gross Domestic Product (GDP) of Canada.
 
 ## Model set-up
 
-Define $y_i$ as the number of seconds that the plane remained aloft. Then $\beta_i$ is the wing width and $\gamma_i$ is the wing length, both measured in millimeters.  
+Let's define the following variables:
 
-\begin{align} 
-y_i|\mu_i, \sigma &\sim \mbox{Normal}(\mu_i, \sigma) \\
-\mu_i &= \alpha + \beta_i + \gamma_i\\
-\alpha &\sim \mbox{Normal}(0, 2.5) \\
-\beta &\sim \mbox{Normal}(0, 2.5) \\
-\gamma &\sim \mbox{Normal}(0, 2.5) \\
-\sigma &\sim \mbox{Exponential}(1)
-\end{align}
+- \( y_i \): GDP for the \( i \)-th year
+- \( x_{1i} \): Total_Unique_Persons for the \( i \)-th year
+- \( x_{2i} \): Revenue for the \( i \)-th year
+- \( x_{3i} \): House_Price_Index for the \( i \)-th year
+- \( x_{4i} \): Consumption for the \( i \)-th year
+- \( x_{5i} \): Exports for the \( i \)-th year
+- \( x_{6i} \): Unemployment_rate for the \( i \)-th year
+- \( x_{7i} \): Inflation_Rate for the \( i \)-th year
 
-We run the model in R [@citeR] using the `rstanarm` package of @rstanarm. We use the default priors from `rstanarm`.
+We assume that the GDP \( y_i \) for each year \( i \) follows a normal distribution with mean \( \mu_i \) and standard deviation \( \sigma \), where:
+
+\[
+\begin{align*}
+y_i | \mu_i, \sigma &\sim \text{Normal}(\mu_i, \sigma^2) \\
+\mu_i &= \alpha + \beta_1 x_{1i} + \beta_2 x_{2i} + \beta_3 x_{3i} + \beta_4 x_{4i} + \beta_5 x_{5i} + \beta_6 x_{6i} + \beta_7 x_{7i} \\
+\alpha &\sim \text{Normal}(0, 2.5^2) \\
+\beta_1, \beta_2, \beta_3, \beta_4, \beta_5, \beta_6, \beta_7 &\sim \text{Normal}(0, 2.5^2) \\
+\sigma &\sim \text{Exponential}(1)
+\end{align*}
+\]
+
+We use the `rstanarm` package in R to fit the Bayesian generalized linear model.
+
+## Model justification
+
+We expect that changes in Total_Unique_Persons, Revenue, House_Price_Index, Consumption, Exports, Unemployment_rate, and Inflation_Rate will have an impact on the Gross Domestic Product (GDP) of Canada. Specifically, we anticipate a positive relationship between GDP and Total_Unique_Persons, Revenue, House_Price_Index, Consumption, and Exports, and a negative relationship between GDP and Unemployment_rate and Inflation_Rate. These relationships are hypothesized based on economic theory and empirical evidence.
 
 
-### Model justification
+# Model 2
 
-We expect a positive relationship between the size of the wings and time spent aloft. In particular...
+The goal of this modeling strategy is to analyze the relationship between various economic indicators and the inflation rate in Canada.
 
-We can use maths by including latex between dollar signs, for instance $\theta$.
+## Model set-up
 
+Let's define the following variables:
+
+- \( y_i \): Inflation_Rate for the \( i \)-th year
+- \( x_{1i} \): Total_Unique_Persons for the \( i \)-th year
+- \( x_{2i} \): GDP for the \( i \)-th year
+- \( x_{3i} \): Annual_Change_GDP for the \( i \)-th year
+- \( x_{4i} \): Revenue for the \( i \)-th year
+- \( x_{5i} \): House_Price_Index for the \( i \)-th year
+- \( x_{6i} \): Consumption for the \( i \)-th year
+- \( x_{7i} \): Exports for the \( i \)-th year
+- \( x_{8i} \): Unemployment_rate for the \( i \)-th year
+
+We assume that the Inflation_Rate \( y_i \) for each year \( i \) follows a normal distribution with mean \( \mu_i \) and standard deviation \( \sigma \), where:
+
+\[
+\begin{align*}
+y_i | \mu_i, \sigma &\sim \text{Normal}(\mu_i, \sigma^2) \\
+\mu_i &= \alpha + \beta_1 x_{1i} + \beta_2 x_{2i} + \beta_3 x_{3i} + \beta_4 x_{4i} + \beta_5 x_{5i} + \beta_6 x_{6i} + \beta_7 x_{7i} + \beta_8 x_{8i} \\
+\alpha &\sim \text{Normal}(0, 2.5^2) \\
+\beta_1, \beta_2, \beta_3, \beta_4, \beta_5, \beta_6, \beta_7, \beta_8 &\sim \text{Normal}(0, 2.5^2) \\
+\sigma &\sim \text{Exponential}(1)
+\end{align*}
+\]
+
+We use the `stan_glm` function in R to fit the Bayesian generalized linear model.
+
+## Model justification
+
+We expect that changes in Total_Unique_Persons, GDP, Annual_Change_GDP, Revenue, House_Price_Index, Consumption, Exports, and Unemployment_rate will have an impact on the inflation rate in Canada. Specifically, we anticipate a positive relationship between inflation rate and Total_Unique_Persons, GDP, Revenue, House_Price_Index, Consumption, and Exports, and a negative relationship between inflation rate and Unemployment_rate. These relationships are hypothesized based on economic theory and empirical evidence.
 
 # Results
+In this study, we sought to identify the factors that significantly contribute to the Gross Domestic Product (GDP) and Inflation Rate. We applied a Bayesian generalized linear model to a dataset encompassing a range of economic indicators over a period of years.
 
-Our results are summarized in @tbl-modelresults.
 
 ```{r}
 #| echo: false
@@ -115,8 +251,12 @@ Our results are summarized in @tbl-modelresults.
 
 library(rstanarm)
 
-first_model <-
-  readRDS(file = here::here("models/first_model.rds"))
+gdp_model <-
+  readRDS(file = here::here("models/gdp_model.rds"))
+
+inflation_model <-
+  readRDS(file = here::here("models/inflation_model.rds"))
+
 ```
 
 ```{r}
@@ -128,7 +268,23 @@ first_model <-
 
 modelsummary::modelsummary(
   list(
-    "First model" = first_model
+    "GDP model" = gdp_model
+  ),
+  statistic = "mad",
+  fmt = 2
+)
+```
+```{r}
+#| echo: false
+#| eval: true
+#| label: tbl-modelresultss
+#| tbl-cap: "Explanatory models of flight time based on wing width and wing length"
+#| warning: false
+
+
+modelsummary::modelsummary(
+  list(
+    "Inflation model" = inflation_model
   ),
   statistic = "mad",
   fmt = 2
@@ -136,21 +292,252 @@ modelsummary::modelsummary(
 ```
 
 
+## Model Summary 
+Our GDP model results are summarized in @tbl-modelresults. The Bayesian regression model revealed several key economic indicators that were significantly associated with GDP. The estimated coefficients from the model indicate the direction and magnitude of each variable's effect. Notable factors with positive influence include Total_Unique_Persons, suggesting that population growth positively correlates with GDP. Similarly, Annual_Change_GDP, Revenue, House_Price_Index, and Consumption all positively impact GDP. On the contrary, Exports showed a slightly negative association, which needs further investigation into the nature of exports and their economic value.
+
+The model demonstrates an excellent fit with an R-squared value of 0.929, indicating that approximately 92.9% of the variance in GDP is explained by the included predictors (See Table 1). The adjusted R-squared, which accounts for the number of predictors in the model, is slightly lower at 0.918, affirming the robustness of the model. The Root Mean Square Error (RMSE) of 117581.47 provides an estimate of the model's prediction error. 
+
+
+Our Inflation model results are summarized in @tbl-modelresultss. The coefficient for Annual_Change_GDP is 0.13 with a standard error of 0.12, suggesting a possible positive relationship with inflation, though this effect is not statistically significant since the coefficient is less than twice its standard error.
+House_Price_Index has a coefficient of -0.01 with a standard error of 0.05, indicating a minor and statistically non-significant negative relationship with inflation.
+Unemployment_rate has a coefficient of -0.03 with a standard error of 0.27, indicating a slight negative relationship with inflation, but again this is not statistically significant.
+All other variables, including Total_Unique_Persons, GDP, Revenue, Consumption, and Exports, have coefficients of 0.00, which means they have no identified relationship with inflation based on this model.
+
+The Root Mean Square Error (RMSE) of 0.70 is relatively low, suggesting that the model's predictions are, on average, close to the observed values. However, the RMSE must be contextualized within the scale of the inflation rate to assess its practical significance.
+
+
+
+
+## GDP Coefficient Plot Summary:
+The plot @fig-modelresultsss indicates that none of the predictors show a statistically significant impact on the dependent variable, as the confidence intervals for all coefficients include zero. Notably, Annual_Change_GDP, Unemployment_rate, and Inflation_Rate have the most substantial effects among the predictors, with Annual_Change_GDP showing a potentially positive effect and the latter two showing negative effects. The sigma parameter is significantly different from zero, confirming the presence of variability in the model's residuals.
+```{r}
+#| echo: false
+#| eval: true
+#| label: fig-modelresultsss
+#| fig-cap: "Explanatory models of flight time based on wing width and wing length"
+#| warning: false
+
+# Generate plots for GDP model
+gdp_plot <- plot(gdp_model)
+
+gdp_plot
+
+new_data1 <- data.frame(
+  Total_Unique_Persons = 360000, # Cap on Total_Unique_Persons
+  Annual_Change_GDP = 1.5000,
+  Revenue = 13971.575,
+  House_Price_Index = 124.4,
+  Consumption = 63372.4,
+  Exports = 779216,
+  Unemployment_rate = 5.400,
+  Inflation_Rate = 3.6200 # Adjusted variable name without line continuation
+)
+
+predicted_gdp <- predict(gdp_model, newdata = new_data1)
+
+
+
+
+```
+## Inflation Coefficient Plot Summary:
+Similar to the first, @fig-modelresultssss plot also suggests that none of the variables provide a statistically significant prediction of the dependent variable, given that all confidence intervals encompass zero. The predictors' coefficients are centered even closer to zero compared to the first plot, indicating an even less pronounced effect. Annual_Change_GDP has a coefficient that is slightly above zero but still not statistically significant. There is no Inflation_Rate variable present in this model, which may suggest a different model focus or specification.
+
+```{r}
+#| echo: false
+#| eval: true
+#| label: fig-modelresultssss
+#| fig-cap: "Explanatory models of flight time based on wing width and wing length"
+#| warning: false
+
+# Generate plots for inflation model
+inflation_plot <- plot(inflation_model)
+inflation_plot
+
+new_data <- data.frame(
+  Total_Unique_Persons = 360000, # Cap on Total_Unique_Persons
+  GDP = 2910986,
+  Annual_Change_GDP = 1.5000,
+  Revenue = 13971.575,
+  House_Price_Index = 124.4,
+  Consumption = 63372.4,
+  Exports = 779216,
+  Unemployment_rate = 5.400
+  
+)
+predicted_inflation <- predict(inflation_model, newdata = new_data)
+
+```
+
+```{r}
+#| echo: false
+#| eval: true
+#| label: fig-graph5
+#| fig-cap: "Regression Relation Between House Price Index and Student Population"
+#| warning: false
+
+
+# Plotting the regression graph
+ggplot(merged_data, aes(x = Total_Unique_Persons, y = Unemployment_rate)) +
+  geom_point() +  # Add points
+    geom_point(alpha = 0.5) +  # Add scatter points
+  scale_x_log10() + 
+  geom_smooth(method = "lm", se = FALSE, color = "blue") +  # Add regression line
+  labs(title = "",
+       x = "Total Student Visas", y = "House Price Index") +
+  theme_minimal()
+
+
+
+```
+
+
+## Predictions
+Using the model we created and trained, we predicted the GDP of Canada for 2024 given the economical constraints of 2024 as seen in @fig-prediction. The predicted GDP for the given data is: `r predicted_gdp`
+```{r}
+#| echo: false
+#| eval: true
+#| label: fig-prediction
+#| fig-cap: "Predicted GDP for the Next Year along with Previous Years' Values"
+#| warning: false
+#| 
+new_data1 <- data.frame(
+  Total_Unique_Persons = 360000, # Cap on Total_Unique_Persons
+  Annual_Change_GDP = 1.5000,
+  Revenue = 13971.575,
+  House_Price_Index = 124.4,
+  Consumption = 63372.4,
+  Exports = 779216,
+  Unemployment_rate = 5.400,
+  Inflation_Rate = 3.6200 # Adjusted variable name without line continuation
+)
+
+predicted_gdp <- predict(gdp_model, newdata = new_data1)
+
+
+
+# Combine the predicted GDP value with the previous years' GDP values
+all_years_gdp <- c(merged_data$GDP, predicted_gdp)
+
+# Create a vector of years including the next year
+all_years <- c(merged_data$Year, max(merged_data$Year) + 1)
+# Create a data frame for plotting
+plot_data <- data.frame(Year = all_years, GDP = all_years_gdp)
+
+# Plot the combined data using ggplot2
+ggplot(plot_data, aes(x = Year, y = GDP)) +
+  geom_line() +
+  geom_point(aes(color = ifelse(Year == 2024, "red", "blue")), size = 3) +
+  labs(
+       x = "Year", y = "GDP") +
+  theme_minimal()  +
+   scale_x_continuous(breaks = seq(min(all_years), max(all_years), by = 1)) +
+  scale_color_identity(guide = "none") +  # Hide the color legend 
+   theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
+
+
+
+```
+
+As seen, the GDP decreases quite drastically given the number of fewer students entering the country. 
+
+It is anticipated that the economy's supply and demand sides will be impacted by population loss. Generally speaking, a decline in population indicates a decrease in the labour supply (since the population is the source of labour) and a decrease in the labour input used in production; on the demand side, it indicates a decrease in the demand for housing, consumption goods and services, and investment because these items are demanded by people. It is anticipated that these adjustments will eventually cause the gross domestic product to decline.(https://www.nature.com/articles/s41599-023-02223-7)
+
+The @fig-graph1 shows the relationship between increasing GDP and house price index of Canada. This shows that as the GDP grows, the house price index of the country also increases as the linear relationship between these variables is very direct. This relationship means that any change in the GDP of the country would have an effect on the housing market as well. As the government places a cap on the student population entering the country and the GDP decreases, this entails the house price index to decrease as well. As quoted by __, "Rising house prices have a positive impact on real GDP through the consumption effect and the construction of new houses (housing investment). Basically, the strength of this positive effect relies on a large share of homeowners (especially regarding the consumption effect)." (https://typeset.io/papers/search-frictions-housing-prices-and-growth-2w5hf4izya)
+
+```{r}
+#| echo: false
+#| eval: true
+#| label: fig-graph1
+#| fig-cap: "Regression Plot: GDP vs. House Price Index"
+#| warning: false
+
+# Plotting the regression graph
+ggplot(merged_data, aes(x = GDP, y = House_Price_Index)) +
+  geom_point() +  # Add points
+  geom_smooth(method = "lm", se = FALSE, color = "blue") +  # Add regression line
+  labs(
+       x = "GDP", y = "House Price Index") +
+  theme_minimal()
+
+```
+
+
+This brings us to the second point about the effect that lower number of homeowners have on the housing market of the country. With the cap induced, there are smaller number of people entering the country and  contributing to the GDP of the country. The decline in the GDP contributes to the decline in the housing market prices which makes the house price index decrease as well and this can be seen in @fig-graph2. As
+Gerrard Flitti added that population decline would "absolutely" have negative economic impacts in the long term, with labor shortages leading to a decrease in GDP, inflation, and recession. "It just basically sinks the economy for years to come unless there's a massive increase in productivity," Filitti  said.(https://www.foxbusiness.com/media/impending-us-population-decline-could-lead-another-depression-more-inflation-experts)
+
+
+```{r}
+#| echo: false
+#| eval: true
+#| label: fig-graph2
+#| fig-cap: "Regression Relation Between House Price Index and Student Population"
+#| warning: false
+
+
+# Plotting the regression graph
+ggplot(merged_data, aes(x = Total_Unique_Persons, y = House_Price_Index)) +
+  geom_point() +  # Add points
+    geom_point(alpha = 0.5) +  # Add scatter points
+  scale_x_log10() + 
+  geom_smooth(method = "lm", se = FALSE, color = "blue") +  # Add regression line
+  labs(title = "",
+       x = "Total Student Visas", y = "House Price Index") +
+  theme_minimal()
+
+```
+
+The other aspect of the economic analysis for this study was the effect on inflation caused by the change in student visa numbers. The @fig-prediction1 shows the predicted inflation rate for 2024 to be `r predicted_inflation`. A decreasing population can lead to a shortage of labor, which in turn can drive up wages as employers compete for a smaller pool of workers. Higher wages can lead to higher production costs for goods and services, potentially causing cost-push inflation. This can be used to explain the extremely high inflation for 2024 being predicted. This notation can be seen in other countries like the US.  For instance, the Federal Reserve Bank of Atlanta points out that population aging is a significant factor contributing to labor shortages in the United States, which, in turn, has been fueling inflation. Since 2019, there's been a notable increase in the population of those aged 65 and older, while the population of prime-age workers (ages 25 to 54) has barely changed. This demographic shift towards an older population has led to a tighter labor market, as there are fewer younger people entering the workforce to replace retiring workers. Such a scenario can lead to wage inflation as employers compete for a smaller pool of workers, ultimately driving up production costs and contributing to cost-push inflation(https://www.atlantafed.org/economy-matters/economic-research/2023/01/12/we-re-getting-older-and-the-labor-market-shows-it). With a decrease of young population entering the labour force of Canada, the country can expect to experience a cost-push inflation.
+
+
+```{r}
+#| echo: false
+#| eval: true
+#| label: fig-prediction1
+#| fig-cap: "Predicted Inflation Rate for the Next Year along with Previous Years' Values"
+#| warning: false
+
+new_data <- data.frame(
+  Total_Unique_Persons = 360000, # Cap on Total_Unique_Persons
+  GDP = 2910986,
+  Annual_Change_GDP = 1.5000,
+  Revenue = 13971.575,
+  House_Price_Index = 124.4,
+  Consumption = 63372.4,
+  Exports = 779216,
+  Unemployment_rate = 5.400
+  
+)
+predicted_inflation <- predict(inflation_model, newdata = new_data)
+
+# Combine the predicted inflation value with the previous years' inflation values
+all_years_inflation <- c(merged_data$Inflation_Rate, predicted_inflation)
+
+# Create a data frame for plotting
+plot_data_inflation <- data.frame(Year = all_years, Inflation_Rate = all_years_inflation)
+
+# Plot the combined data using ggplot2
+ggplot(plot_data_inflation, aes(x = Year, y = Inflation_Rate)) +
+  geom_line() +
+  geom_point(aes(color = ifelse(Year == 2024, "red", "blue")), size = 3) +  # Change color for 2024 year dot
+ 
+  labs(
+       x = "", y = "Inflation Rate") +  # Remove x-axis label
+  scale_color_identity(guide = "none") +  # Hide the color legend
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5))  + # Rotate x-axis labels vertically
+   scale_x_continuous(breaks = seq(min(all_years), max(all_years), by = 1)) 
+
+```
 
 
 # Discussion
 
-## First discussion point {#sec-first-point}
-
-If my paper were 10 pages, then should be be at least 2.5 pages. The discussion is a chance to show off what you know and what you learnt from all this. 
-
-## Second discussion point
-
-## Third discussion point
-
 ## Weaknesses and next steps
 
-Weaknesses and next steps should also be included.
+The dataset used in this analysis may be subject to various biases, which could affect the validity and generalizability of the findings. There is measurement bias in the dataset from inaccuracies or inconsistencies in data collection methods, such as self-reporting or sampling errors. The dataset also a collection of different datasets with different units of measurements and converting them into one unit dataset arises measurement bias. Also alot of values of different years were missing for different variables of the dataset that were sourced from other datasets and websites, which creates biases. Furthermore, the analysis process itself is susceptible to weaknesses such as model assumptions, variable selection bias, and overfitting. Model assumptions may not be met by the data, leading to biased estimates or incorrect conclusions. Variable selection bias could influence results depending on which variables are included or excluded from the analysis. Overfitting may occur if complex models fit the training data too closely but generalize poorly to new data. These weaknesses highlight the importance of careful consideration and transparency throughout the research process to mitigate biases and ensure the reliability of the findings.
+
+
+In future research, it would be beneficial to address several avenues for further exploration and refinement. Firstly, expanding the dataset to include additional relevant variables could enhance the depth of the analysis and provide a better understanding of the factors influencing economic indicators. Additionally, conducting longitudinal studies to track changes over time and incorporating dynamic modeling techniques could offer insights into the evolving nature of economic relationships. Furthermore, considering the impact of external factors such as policy interventions, socio-economic trends, and global events on the studied phenomena could enrich the analysis and provide valuable insights for policymakers and practitioners. Overall, this cap of 360,000 on international students for two years is a big step taken by the governnment and its economic effects need to studied furthur to help decrease possible losses in different sector of  the economy.
 
 \newpage
 
@@ -161,13 +548,11 @@ Weaknesses and next steps should also be included.
 
 # Additional data details
 
-# Model details {#sec-model-details}
-
 ## Posterior predictive check
 
-In @fig-ppcheckandposteriorvsprior-1 we implement a posterior predictive check. This shows...
+In @fig-ppcheckandposteriorvsprior-1 we implement a posterior predictive check. This shows the fit between the observed GDP data and the data simulated from the model's posterior distribution. The x-axis likely represents the GDP values, while the y-axis indicates the density of these values within the data. It appears that the model has varying success in capturing the distribution of the observed GDP. The central mass of the predictive simulations (represented by the numerous blue lines) seems to align well with the peak of the observed data (the solid black line), suggesting that the model accurately captures the median of the GDP data.
 
-In @fig-ppcheckandposteriorvsprior-2 we compare the posterior with the prior. This shows... 
+In @fig-ppcheckandposteriorvsprior-2 we compare the posterior with the prior. This shows the model's predictions are consistent with the observed data. The tail behavior and the central peak of the observed data distribution are captured within the range of the simulations, although there might be some discrepancies at the peak.
 
 ```{r}
 #| eval: true
@@ -179,36 +564,16 @@ In @fig-ppcheckandposteriorvsprior-2 we compare the posterior with the prior. Th
 #| fig-cap: "Examining how the model fits, and is affected by, the data"
 #| fig-subcap: ["Posterior prediction check", "Comparing the posterior with the prior"]
 
-pp_check(first_model) +
+pp_check(gdp_model) +
   theme_classic() +
   theme(legend.position = "bottom")
 
-posterior_vs_prior(first_model) +
-  theme_minimal() +
-  scale_color_brewer(palette = "Set1") +
-  theme(legend.position = "bottom") +
-  coord_flip()
-```
 
-## Diagnostics
+pp_check(inflation_model) +
+  theme_classic() +
+  theme(legend.position = "bottom")
 
-@fig-stanareyouokay-1 is a trace plot. It shows... This suggests...
 
-@fig-stanareyouokay-2 is a Rhat plot. It shows... This suggests...
-
-```{r}
-#| echo: false
-#| eval: true
-#| message: false
-#| warning: false
-#| label: fig-stanareyouokay
-#| fig-cap: "Checking the convergence of the MCMC algorithm"
-#| fig-subcap: ["Trace plot", "Rhat plot"]
-#| layout-ncol: 2
-
-plot(first_model, "trace")
-
-plot(first_model, "rhat")
 ```
 
 
