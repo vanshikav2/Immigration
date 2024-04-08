@@ -1,22 +1,15 @@
 #### Preamble ####
-# Purpose: Tests... [...UPDATE THIS...]
-# Author: Rohan Alexander [...UPDATE THIS...]
-# Date: 11 February 2023 [...UPDATE THIS...]
-# Contact: rohan.alexander@utoronto.ca [...UPDATE THIS...]
+# Purpose: Tests the cleaned file
+# Author: Vanshika Vanshika
+# Date: 4 April 2024
+# Contact: vanshika.vanshika@gmail.com
 # License: MIT
-# Pre-requisites: [...UPDATE THIS...]
-# Any other information needed? [...UPDATE THIS...]
-
 
 #### Workspace setup ####
 library(tidyverse)
-# [...UPDATE THIS...]
-
-#### Test data ####
-# Load necessary libraries
 library(testthat)
 
-# Load the merged_dataset
+#### Test data ####
 # Load the merged_dataset
 merged_dataset <- read.csv("data/analysis_data/merged_data.csv")
 

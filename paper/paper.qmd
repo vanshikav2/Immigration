@@ -1,13 +1,15 @@
 ---
-title: "My title"
-subtitle: "My subtitle if needed"
+title: "Cap On Student Visas in Canada Show Significant GDP Loss"
+subtitle: "House Price Index To Take A Hit"
 author: 
-  - First author
-  - Another author
-thanks: "Code and data are available at: LINK."
+  - Vanshika Vanshika
+thanks: "Code and data are available at: https://github.com/vanshikav2/Immigration."
 date: today
 date-format: long
 abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
+header-includes:
+  - \usepackage{amsmath}
+  - \usepackage{amssymb}
 format: pdf
 number-sections: true
 bibliography: references.bib
@@ -19,21 +21,38 @@ bibliography: references.bib
 #| message: false
 
 library(tidyverse)
-# Load necessary libraries
 library(ggplot2)
 library(dplyr)
 library(readxl)
 library(here)
 library(reshape2)
+library(plotly)
 
 consumption <- read.csv(here("data/analysis_data/consumption.csv"))
 merged_data <- read.csv(here("data/analysis_data/merged_data.csv"))
+inflation <- read.csv(here("data/analysis_data/inflation.csv"))
+gdp <- read.csv(here("data/analysis_data/gdp.csv"))
+revenue <- read.csv(here("data/analysis_data/revenue.csv"))
+house_price_index <- read.csv(here("data/analysis_data/house_price_index.csv"))
+unemployment <- read.csv(here("data/analysis_data/unemployment.csv"))
+ex_and_imp <- read.csv(here("data/analysis_data/ex_and_imp.csv"))
+
 ```
 
 
 # Introduction
 
-You can and should cross-reference sections and sub-sections. We use @citeR and @rohan.
+After the COVID-19 pandemic, Canada's economy has recovered quickly, thanks to the government's help and smart planning. But, even with this improvement, there are still big challenges. For one, prices for a lot of things are going up around the world, which makes living more expensive. Also, even though lots of people have jobs (unemployment is very low), there are still many jobs no one is filling. This is good because it shows the economy is bouncing back, but it also points to problems that need fixing, like how expensive it is to live because of rising prices and issues that affect people's well-being, like stress and mental health concerns.
+Additionally, Canada's welcoming attitude towards international students, who come here for education and can work after graduating, has had an unexpected side effect. It's made finding a place to live harder and more expensive, especially because there are not enough places for everyone to rent. Rent prices went up by 7.7% in just one year across the country. This highlights a big problem with not having enough affordable houses for everyone.
+((https://www.reuters.com/world/americas/why-is-canada-capping-foreign-students-who-will-be-impacted-2024-01-22/)
+The Canadian government, in response to these complex challenges, has initiated a policy intervention by imposing a two-year cap on the number of international students, a move that seeks to balance the educational sector's integrity with economic and housing market stability. This measure aims to relax the strain on housing problems and address concerns regarding the quality of education in an environment where certain educational institutions might not meet the expected standards. This policy change is significant, considering that international students have historically contributed substantially to the Canadian economy, with more than 1 million students contributing approximately C$22 billion annually.(https://www.bnnbloomberg.ca/student-visa-cap-to-hurt-economy-have-marginal-impact-on-housing-experts-warn-1.2025552) The cap, set at 350,000 students, alongside targeted closures in the private education sector, represents a pivotal moment in Canada's educational and immigration policy landscape.(https://economictimes.indiatimes.com/nri/study/canadas-cap-on-foreign-students-what-you-need-to-know-and-how-to-improve-your-odds-of-qualifying/articleshow/107250609.cms?from=mdr)
+
+
+This report looks at how Canada is doing economically after the pandemic, focusing on how recent government decisions are helping or hurting the country's economy and prices. It talks about the good and bad sides of Canada's economic recovery, especially problems like expensive housing and rising prices caused by many international students coming to Canada. The study will predict what might happen because of government actions, like limiting the number of international students, and how these actions could affect the country's economy and prices. The estimand of the paper is GDP and inflation of 2024 after the cap on student visas.
+
+The report also dives into the social and economic factors that are shaping Canada's future, like the situation where there are many jobs but not enough people to fill them, leading to higher wages and concerns about how productive workers are. It looks at how global trends in rising prices are making life more expensive in Canada and evaluates how well government actions are working to handle these issues.
+
+By putting all this information together, the report aims to share important findings on how immigration and education policies are affecting Canada's economy after the pandemic. It offers advice on how to balance boosting the economy, making sure people are doing well, and keeping the education system strong. The ultimate goal is to suggest ways Canada can use its policies to keep the economy going strong while making sure people have a good quality of life in the days after the pandemic.
 
 The remainder of this paper is structured as follows. @sec-data....
 
@@ -41,108 +60,186 @@ The remainder of this paper is structured as follows. @sec-data....
 
 # Data {#sec-data}
 
-Some of our data is of penguins (@fig-bills), from @palmerpenguins.
+## Data source and collection
+
+The datasets utilized in this study were sourced from various reputable sources, including government agencies, statistical bureaus, and economic research institutions. The data collection process involved accessing publicly available datasets from official websites and databases, ensuring reliability and consistency across sources.
+
+
+### Gross Domestic Product (GDP): 
+
+GDP data was obtained from The World Bank of Data (https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=CA) which was then used, cleaned by macrotrends(https://www.macrotrends.net/global-metrics/countries/CAN/canada/gdp-gross-domestic-product). The economy's growth is quantified by changes in its output volume or the real incomes of its inhabitants. The gdp over the years can be seen in @fig-a. According to the 2008 United Nations System of National Accounts (2008 SNA), three main indicators are used to measure growth: the volume of gross domestic product (GDP), real gross domestic income, and real gross national income. GDP, a key metric, represents the total value added at constant prices by households, government, and industries operating within the economy. It encompasses all domestic production, regardless of whether the income benefits domestic or foreign entities. This dataset consisted of GDP ( Billions of US $), Per Capita (US $), and Annual % Change in GDP of Canada from 1960 - 2022. The GDP for the year 2023 was extracted separately from the World Bank of Data. 
+
 
 ```{r}
 #| label: fig-a
 #| fig-cap: Time Series Plot of GDP
 #| echo: false
+#| warning: false
 # Time Series Plot of GDP
-ggplot(merged_data, aes(x = Year, y = GDP)) +
-  geom_line() +
-  labs(
-       x = "Year",
-       y = "GDP")
+ ggplot(merged_data, aes(x = Year, y = GDP)) +
+  geom_line(color = "red") +
+  labs(x = "Year",
+       y = "GDP")   +
+  theme_light() +  # This adds a more visible grid compared to theme_minimal()
+  theme(legend.position = "none")  # Hide legend if not necessary
+
+# Turn it interactive with ggplotly
 
 ```
-```{r}
-#| label: fig-b
-#| fig-cap: Bills of penguins
-#| echo: false
-pairs(~ GDP + Total_Unique_Persons + Revenue + House_Price_Index + Consumption + 
-         Trade_Balance + Exports + Imports + Unemployment_rate + Inflation_Rate,
-      data = merged_data)
 
-```
-```{r}
-#| label: fig-c
-#| fig-cap: Bills of penguins
-#| echo: false
 
-correlation_matrix <- cor(merged_data[, c("GDP", "Total_Unique_Persons", "Revenue", "House_Price_Index", 
-                                    "Consumption", "Trade_Balance", "Exports", "Imports", 
-                                    "Unemployment_rate", "Inflation_Rate")])
-ggplot(melt(correlation_matrix), aes(Var1, Var2, fill = value)) +
-  geom_tile() +
-  scale_fill_gradient(low = "blue", high = "purple") +
-  labs(title = "Correlation Heatmap")
+### Education Revenues: 
 
-```
+Revenue data was sourced from Statistics Canada(https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3710002801). 
+This dataset is about the Canadian college revenues from the year 2001 to 2022. It contains total revenue that all the canadian college made each year including grants, fees, investment, etc.  This was measured using the Financial Information of Community Colleges and Vocational Schools Survey collected by the government. The Financial Information of Community Colleges and Vocational Schools Survey was developed to provide financial information (income and expenditures) on all non-degree-granting community colleges and public vocational schools in Canada and is conducted annually.
+
+
+
+### Housing Price Indexes: 
+
+Housing price index data was obtained from Statistics Canada's Housing Price Index database(https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1810020501). It provides the changes in the housing price index monthly from the year 2000 to 2023. The total housing price index includes the changes in the land as well as the house price index. The New Housing Price Index (NHPI) is a monthly series that measures changes over time in the builders' selling prices of new residential houses, where detailed specifications pertaining to each house remain the same between two consecutive periods.
+
+
+### Consumption: 
+
+Consumption data was collected from Statistics Canada’s database. (https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3610060901&pickMembers%5B0%5D=1.1&cubeTimeFrame.startYear=2008&cubeTimeFrame.endYear=2023&referencePeriods=20080101%2C20230101). It included household actual final consumption for years 2008-2023 which included their consumption on food, drinks, entertainment, housing, education, health, and all the other expenditures. This information was collected using two different surveys, The Provincial and Territorial Gross Domestic Product (GDP) by Income and by Expenditure Accounts and The National Gross Domestic Product (GDP) by Income and by Expenditure Accounts. The Provincial and Territorial Gross Domestic Product (GDP) by Income and by Expenditure Accounts program produces annual estimates of selected aggregates of the National GDP by Income and by Expenditure Accounts, by province and territory: GDP, final domestic demand, household income, and government sector accounts. Secondly, The National Gross Domestic Product (GDP) by Income and Expenditure Accounts gives a comprehensive statistical picture of Canadian economic developments. The national gross domestic product by income and by expenditure is at the center of macroeconomic analysis and policy-making in Canada. 
+
+Some of the important features of this dataset and their trends can be seen in @fig-d.
+
 ```{r}
 #| label: fig-d
-#| fig-cap: Bills of penguins
+#| fig-cap: "Trends of Key Variables Over Time"
 #| echo: false
+#| warning: false
 # Line Plot of Key Variables
+# Assuming 'merged_data' is your dataframe and it has the correct columns
 ggplot(merged_data, aes(x = Year)) +
-  geom_line(aes(y = Total_Unique_Persons), color = "blue") +
-  geom_line(aes(y = Revenue), color = "red") +
-  geom_line(aes(y = House_Price_Index), color = "green") +
-  geom_line(aes(y = Consumption), color = "orange") +
-  labs(title = "Trends of Key Variables Over Time",
-       x = "Year",
-       y = "Value") +
-  scale_y_continuous(labels = scales::comma)
-
+  geom_smooth(aes(y = Total_Unique_Persons, color = "Total Unique Persons"), se = FALSE) +
+  geom_smooth(aes(y = Revenue, color = "Revenue"), se = FALSE) +
+  geom_smooth(aes(y = House_Price_Index, color = "House Price Index"), se = FALSE) +
+  geom_smooth(aes(y = Consumption, color = "Consumption"), se = FALSE) +
+  labs(
+    x = "Year",
+    y = "Value",
+    color = "Indicator" # Legend title
+  ) +
+  scale_color_manual(values = c("Total Unique Persons" = "blue", 
+                                "Revenue" = "orange", 
+                                "House Price Index" = "green", 
+                                "Consumption" = "red")) +
+  scale_y_continuous(labels = scales::comma) +
+  theme_minimal() # For a clean and minimal theme
 ```
+
+
+### Exports and Imports:
+
+Data on exports and imports were sourced from Statistics Canada’s database(https://www150.statcan.gc.ca/n1/daily-quotidien/230509/cg-a001-eng.htm). It includes the total exports, imports, and trade balance of Canada from years 2008 to 2022. The year 2023 exports and imports were derived from the trading economics website(https://tradingeconomics.com/canada/exports#:~:text=April%20of%202024.-,Exports%20in%20Canada%20decreased%20to%2062284.80%20CAD%20Million%20in%20January,macro%20models%20and%20analysts%20expectations). 
+ This is measured through the Canadian International Merchandise Trade (CIMT) Program. The objective of this statistical program is to provide measures of Canada's international merchandise trade through the production of import and export statistics. Data are extracted from administrative files.
+In general, merchandise trade statistics are compiled from administrative records used by Customs agencies to facilitate and oversee the flow of goods across the frontier. 
+
+
+### Unemployment Rates: 
+
+Unemployment rate data was obtained from Macrotrends database(https://www.macrotrends.net/global-metrics/countries/CAN/canada/unemployment-rate#:~:text=Canada%20unemployment%20rate%20for%202022,a%200.17%25%20decline%20from%202018) and Statista database(https://www.statista.com/statistics/578362/unemployment-rate-canada/#:~:text=In%202023%2C%205.4%20percent%20of,force%20in%20Canada%20was%20unemployed). The data consisted of the unemployment rate in Canada and the annual change in the unemployment rate from 1991 to 2023. These rates are sourced from the International Labour Organization, “ILO Modelled Estimates and Projections database ( ILOEST ), which has surveys and automated ways of calculating the unemployment rates of the labor force. 
+
+
+
+### Inflation: 
+
+Inflation data was sourced from consumer price index (CPI) reports published by the World Bank of data(https://data.worldbank.org/indicator/FP.CPI.TOTL.ZG?locations=CA-XN). It measures the rate of increase in the general price level of goods and services, reflecting changes in purchasing power and overall price stability, and uses the International Monetary Fund, International Financial Statistics and data files. The inflation rate is depicted from years 1960-2023.
+           Total Unique Persons in Canada: This dataset is sourced from the Government of Canada’s database(https://open.canada.ca/data/en/dataset/90115b00-f9b8-49e8-afa3-b4cff8facaee/resource/b663a97c-61d4-4e17-af51-0cba01ef3a44) which shows the Temporary Residents: Study Permit Holders of Canada from year 2000 to 2023.  This dataset is published by the  Immigration, Refugees, and Citizenship Canada. 
+
 ```{r}
 #| label: fig-i
-#| fig-cap: Bills of penguins
+#| fig-cap: Inflation Rate over the Years
 #| echo: false
 
-ggplot(merged_data, aes(x = Year)) +
-  geom_line(aes(y = Unemployment_rate), color = "blue") +
-  geom_line(aes(y = Inflation_Rate), color = "red") +
-  labs(title = "Time Series Plot of Unemployment Rate and Inflation Rate",
-       x = "Year",
-       y = "Rate")
+# Time Series Plot of GDP
+ggplot(merged_data, aes(x = Year, y = Inflation_Rate)) +
+  geom_line(color = "blue") +
+  labs(x = "Year",
+       y = "Inflation rate") +
+    theme_light() +  # This adds a more visible grid compared to theme_minimal()
+  theme(legend.position = "none")  # Hide legend if not necessary
 
 ```
+
+
+
+
+## Data Cleaning
+
+We used R [@citeR] for data cleaning and processing, utilizing packages like tidyverse [@tidy] for data manipulation and janitor [@jan] for cleaning column names. Other packages used includes `ggplot2` [@ggplot], `dplyr` [@dp], `readr` [@read], `tibble` [@tib], `janitor` [@jan],`reshape2` [@reshape], `knitr` [@knit], `ggbeeswarm` [@gg], `ggrepel` [@repel], `kableExtra`[@kable], `readxl`[@readxl], `MASS`[@mass], `rstanarm`[@rstan], `modelsummary`[@model] and `here` [@here].
+
+All these different datsets were cleaned in a different way to match the final representation of the cleaned data.
+
+The inflation data was filtered like @tbl-cleaned-data. The original data included all the dates, so it was filtered to only include the year.
 ```{r}
-#| label: fig-h
-#| fig-cap: Bills of penguins
+#| label: tbl-cleaned-data
+#| message: false
 #| echo: false
+#| warning: false
+#| tbl-cap: "Sample of Inflation Rate Data"
+library(kableExtra)
 
-ggplot(merged_data, aes(x = Trade_Balance, y = GDP)) +
-  geom_boxplot() +
-  labs(title = "Boxplot of GDP by Trade Balance",
-       x = "Trade Balance",
-       y = "GDP")
+options(kableExtra.latex.max.width=1)
+head(inflation, 6) |>
+  kable(
+        col.names = c("Year","Inflation_Rate","Annual_Change_Inflation"),
+    booktabs = TRUE,
+    longtable = FALSE
+  ) %>%
+  kable_styling(latex_options = c("striped", "scale_down"), font_size = 6)
 ```
+The gdp, unemployment, college income datasets were also cleaned similarily like inflation dataset.
+
+
+The consumption cleaned dataset looked like this @tbl-cleaned-data2. The data transposed to have years and consumption have vertical columns instead of horizontal. Only the Year and consumption column of the original dataset were kept and the rest were deleted. Some of the unnecessary first and last rows were also removed from the dataset.
+
 ```{r}
-#| label: fig-g
-#| fig-cap: Bills of penguins
+#| label: tbl-cleaned-data2
+#| message: false
 #| echo: false
+#| warning: false
+#| tbl-cap: "Sample of Consumption Data"
+library(kableExtra)
 
-# Scatterplot for GDP vs Inflation
-ggplot(merged_data, aes(x = GDP, y = Inflation_Rate)) +
-  geom_point() +
-  labs(title = "Scatterplot of GDP vs Inflation",
-       x = "GDP",
-       y = "Inflation Rate")
-
+options(kableExtra.latex.max.width=1)
+head(consumption, 6) |>
+  kable(
+        col.names = c("", "Year","Consumption"),
+    booktabs = TRUE,
+    longtable = FALSE
+  ) %>%
+  kable_styling(latex_options = c("striped", "scale_down"), font_size = 6)
 ```
+Some of the other datasets like exports and imports, house_price_index and revenue were also cleaned like the consumption dataset.
+
+## Data modification
+All of the datasets that were cleaned were then combined into one file as the merged.csv file shown in @tbl-cleaned-data1 It ranged from 2001 to 2023 and assigned 0 as the value for the variables that did have the value recorded for the particular year. Some of the variables such that the house price index, GDP, Revenue, and consumption were recorded horizontally and had to be transposed to fit all the data together. GDP was recorded in billions and revenue was recorded in thousands; they were converted to millions so that the entire dataset was made in the same unit of millions. The year 2023 had a lot of missing variables and were collected separately from different websites to fill the training data better.
+
 ```{r}
-#| label: fig-e
-#| fig-cap: Bills of penguins
+#| label: tbl-cleaned-data1
+#| message: false
 #| echo: false
+#| warning: false
+#| tbl-cap: "Sample of Cleaned State Score Data"
+library(kableExtra)
 
-ggplot(merged_data, aes(x = Inflation_Rate, y = Total_Unique_Persons)) +
-  geom_point() +
-  labs(title = "Scatterplot of Inflation vs Total Unique Persons",
-       x = "Inflation Rate",
-       y = "Total Unique Persons")
+library(knitr)
+library(kableExtra)
 
+head(merged_data, 6) %>%
+  kable(
+    col.names = c("Year","Total_Unique_Persons","GDP","Per_Capita","Annual_Change_GDP","Revenue","House_Price_Index","Consumption","Trade_Balance","Exports","Imports","Unemployment_rate","Annual_Change_unemployment","Inflation_Rate","Annual_Change_Inflation"),
+    format = "latex",
+    booktabs = TRUE,
+    longtable = FALSE
+  ) %>%
+  kable_styling(latex_options = "scale_down", full_width = F)
 ```
+
 ```{r}
 #| label: fig-f
 #| fig-cap: Bills of penguins
@@ -157,14 +254,6 @@ ggplot(merged_data, aes(x = Year)) +
 
 ```
 
-Talk more about it.
-
-And also planes (@fig-planes). (You can change the height and width, but don't worry about doing that until you have finished every other aspect of the paper - Quarto will try to make it look nice and the defaults usually work well once you have enough text.)
-
-
-Talk way more about it. 
-
-
 
 # Model
 
@@ -175,18 +264,19 @@ The goal of our modeling strategy is to analyze the relationship between various
 
 Let's define the following variables:
 
-- \( y_i \): GDP for the \( i \)-th year
-- \( x_{1i} \): Total_Unique_Persons for the \( i \)-th year
-- \( x_{2i} \): Revenue for the \( i \)-th year
-- \( x_{3i} \): House_Price_Index for the \( i \)-th year
-- \( x_{4i} \): Consumption for the \( i \)-th year
-- \( x_{5i} \): Exports for the \( i \)-th year
-- \( x_{6i} \): Unemployment_rate for the \( i \)-th year
-- \( x_{7i} \): Inflation_Rate for the \( i \)-th year
+- $y_i$: GDP for the $i$-th year
+- $x_{1i}$: Total\_Unique\_Persons for the $i$-th year
+- $x_{2i}$: Revenue for the $i$-th year
+- $x_{3i}$: House\_Price\_Index for the $i$-th year
+- $x_{4i}$: Consumption for the $i$-th year
+- $x_{5i}$: Exports for the $i$-th year
+- $x_{6i}$: Unemployment\_rate for the $i$-th year
+- $x_{7i}$: Inflation\_Rate for the $i$-th year
 
-We assume that the GDP \( y_i \) for each year \( i \) follows a normal distribution with mean \( \mu_i \) and standard deviation \( \sigma \), where:
+We assume that the GDP $y_i$ for each year $i$ follows a normal distribution with mean $\mu_i$ and standard deviation $\sigma$, where:
 
-\[
+
+\
 \begin{align*}
 y_i | \mu_i, \sigma &\sim \text{Normal}(\mu_i, \sigma^2) \\
 \mu_i &= \alpha + \beta_1 x_{1i} + \beta_2 x_{2i} + \beta_3 x_{3i} + \beta_4 x_{4i} + \beta_5 x_{5i} + \beta_6 x_{6i} + \beta_7 x_{7i} \\
@@ -194,7 +284,7 @@ y_i | \mu_i, \sigma &\sim \text{Normal}(\mu_i, \sigma^2) \\
 \beta_1, \beta_2, \beta_3, \beta_4, \beta_5, \beta_6, \beta_7 &\sim \text{Normal}(0, 2.5^2) \\
 \sigma &\sim \text{Exponential}(1)
 \end{align*}
-\]
+\
 
 We use the `rstanarm` package in R to fit the Bayesian generalized linear model.
 
@@ -211,19 +301,19 @@ The goal of this modeling strategy is to analyze the relationship between variou
 
 Let's define the following variables:
 
-- \( y_i \): Inflation_Rate for the \( i \)-th year
-- \( x_{1i} \): Total_Unique_Persons for the \( i \)-th year
-- \( x_{2i} \): GDP for the \( i \)-th year
-- \( x_{3i} \): Annual_Change_GDP for the \( i \)-th year
-- \( x_{4i} \): Revenue for the \( i \)-th year
-- \( x_{5i} \): House_Price_Index for the \( i \)-th year
-- \( x_{6i} \): Consumption for the \( i \)-th year
-- \( x_{7i} \): Exports for the \( i \)-th year
-- \( x_{8i} \): Unemployment_rate for the \( i \)-th year
+- $y_i$: Inflation\_Rate for the $i$-th year
+- $x_{1i}$: Total\_Unique\_Persons for the $i$-th year
+- $x_{2i}$: GDP for the $i$-th year
+- $x_{3i}$: Annual\_Change\_GDP for the $i$-th year
+- $x_{4i}$: Revenue for the $i$-th year
+- $x_{5i}$: House\_Price\_Index for the $i$-th year
+- $x_{6i}$: Consumption for the $i$-th year
+- $x_{7i}$: Exports for the $i$-th year
+- $x_{8i}$: Unemployment\_rate for the $i$-th year
 
-We assume that the Inflation_Rate \( y_i \) for each year \( i \) follows a normal distribution with mean \( \mu_i \) and standard deviation \( \sigma \), where:
+We assume that the Inflation\_Rate $y_i$ for each year $i$ follows a normal distribution with mean $\mu_i$ and standard deviation $\sigma$, where:
 
-\[
+\
 \begin{align*}
 y_i | \mu_i, \sigma &\sim \text{Normal}(\mu_i, \sigma^2) \\
 \mu_i &= \alpha + \beta_1 x_{1i} + \beta_2 x_{2i} + \beta_3 x_{3i} + \beta_4 x_{4i} + \beta_5 x_{5i} + \beta_6 x_{6i} + \beta_7 x_{7i} + \beta_8 x_{8i} \\
@@ -231,7 +321,7 @@ y_i | \mu_i, \sigma &\sim \text{Normal}(\mu_i, \sigma^2) \\
 \beta_1, \beta_2, \beta_3, \beta_4, \beta_5, \beta_6, \beta_7, \beta_8 &\sim \text{Normal}(0, 2.5^2) \\
 \sigma &\sim \text{Exponential}(1)
 \end{align*}
-\]
+\
 
 We use the `stan_glm` function in R to fit the Bayesian generalized linear model.
 
