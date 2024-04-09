@@ -197,7 +197,7 @@ We used R [@citeR] for data cleaning and processing, utilizing packages like tid
 
 All these different datsets were cleaned in a different way to match the final representation of the cleaned data.
 
-The inflation data was filtered like @tbl-cleaned-data. The original data included all the dates, so it was filtered to only include the year.
+The inflation data was filtered like @tbl-cleaned-data. The original data included all the dates, so it was filtered to only include the Year column.
 ```{r}
 #| label: tbl-cleaned-data
 #| message: false
@@ -218,7 +218,7 @@ head(inflation, 6) |>
 The gdp, unemployment, college income datasets were also cleaned similarily like inflation dataset.
 
 
-The consumption cleaned dataset looked like this @tbl-cleaned-data2. The data transposed to have years and consumption have vertical columns instead of horizontal. Only the Year and consumption column of the original dataset were kept and the rest were deleted. Some of the unnecessary first and last rows were also removed from the dataset.
+The consumption cleaned dataset looked like this @tbl-cleaned-data2. The data transposed to have years and consumption have vertical columns instead of horizontal. Only the Year and Consumption column of the original dataset were kept and the rest were deleted. Some of the unnecessary first and last rows were also removed from the dataset.
 
 ```{r}
 #| label: tbl-cleaned-data2
@@ -237,7 +237,7 @@ head(consumption, 6) |>
   ) %>%
   kable_styling(latex_options = c("striped", "scale_down"), font_size = 6)
 ```
-Some of the other datasets like exports and imports, house_price_index and revenue were also cleaned like the consumption dataset.
+Some of the other datasets like Exports and Imports, House_Price_Index and Revenue were also cleaned like the consumption dataset.
 
 ## Data modification
 All of the datasets that were cleaned were then combined into one file as the merged.csv file shown in @tbl-cleaned-data1 It ranged from 2001 to 2023 and assigned 0 as the value for the variables that did have the value recorded for the particular year. Some of the variables such that the house price index, GDP, Revenue, and consumption were recorded horizontally and had to be transposed to fit all the data together. GDP was recorded in billions and revenue was recorded in thousands; they were converted to millions so that the entire dataset was made in the same unit of millions. The year 2023 had a lot of missing variables and were collected separately from different websites to fill the training data better.
@@ -490,8 +490,6 @@ ggplot(merged_data, aes(x = Total_Unique_Persons, y = Unemployment_rate)) +
 ```
 
 
-## Predictions
-Using the model we created and trained, we predicted the GDP of Canada for 2024 given the economical constraints of 2024 as seen in @fig-prediction. The predicted GDP for the given data is: `r predicted_gdp`
 ```{r}
 #| echo: false
 #| eval: true
@@ -536,11 +534,14 @@ ggplot(plot_data, aes(x = Year, y = GDP)) +
 
 
 ```
+
+
+## Predictions
+Using the model we created and trained, we predicted the GDP of Canada for 2024 given the economical constraints of 2024 as seen in @fig-prediction. The predicted GDP for the given data is: `r predicted_gdp`million (CAD).
 As seen, the GDP decreases quite drastically given the number of fewer students entering the country. 
 
 
 
-The other aspect of the economic analysis for this study was the effect on inflation caused by the change in student visa numbers. The @fig-prediction1 shows the predicted inflation rate for 2024 to be `r predicted_inflation`. This reveals that the inflation increases in the new settings and policies of the country implemented for 2024.
 
 ```{r}
 #| echo: false
@@ -581,6 +582,10 @@ ggplot(plot_data_inflation, aes(x = Year, y = Inflation_Rate)) +
    scale_x_continuous(breaks = seq(min(all_years), max(all_years), by = 1)) 
 
 ```
+
+
+
+The other aspect of the economic analysis for this study was the effect on inflation caused by the change in student visa numbers. The @fig-prediction1 shows the predicted inflation rate for 2024 to be `r predicted_inflation`. This reveals that the inflation increases in the new settings and policies of the country implemented for 2024.
 
 ## Relation to House Price Index
 
