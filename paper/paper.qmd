@@ -1,18 +1,20 @@
 ---
 title: "Cap On Student Visas in Canada Show Significant GDP Loss"
-subtitle: "House Price Index To Take A Hit"
+subtitle: "House Price Index To Also Take A Hit"
 author: 
   - Vanshika Vanshika
 thanks: "Code and data are available at: https://github.com/vanshikav2/Immigration."
 date: today
 date-format: long
-abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
+abstract: "This paper investigates the economic repercussions of Canada's policy to limit the number of international student visas. It studies the effects of such a policy on the country's GDP and inflation, providing predictive insights based on different economic models. The findings reveal a considerable decline in GDP and a simultaneous rise in inflation rates, anticipating a challenging economic landscape ahead. These results signifies the important role of international students in the Canadian economy and hint at the potential for policy refinement to balance economic growth with the complexities of the housing market and education sector. The study serves as a call to policymakers to consider the far-reaching implications of immigration policies on the nation's economic well-being."
 header-includes:
   - \usepackage{amsmath}
   - \usepackage{amssymb}
+  - \usepackage{pgfplots}
 format: pdf
 number-sections: true
 bibliography: references.bib
+toc: true
 ---
 
 ```{r}
@@ -26,7 +28,6 @@ library(dplyr)
 library(readxl)
 library(here)
 library(reshape2)
-library(plotly)
 
 consumption <- read.csv(here("data/analysis_data/consumption.csv"))
 merged_data <- read.csv(here("data/analysis_data/merged_data.csv"))
@@ -43,9 +44,8 @@ ex_and_imp <- read.csv(here("data/analysis_data/ex_and_imp.csv"))
 # Introduction
 
 After the COVID-19 pandemic, Canada's economy has recovered quickly, thanks to the government's help and smart planning. But, even with this improvement, there are still big challenges. For one, prices for a lot of things are going up around the world, which makes living more expensive. Also, even though lots of people have jobs (unemployment is very low), there are still many jobs no one is filling. This is good because it shows the economy is bouncing back, but it also points to problems that need fixing, like how expensive it is to live because of rising prices and issues that affect people's well-being, like stress and mental health concerns.
-Additionally, Canada's welcoming attitude towards international students, who come here for education and can work after graduating, has had an unexpected side effect. It's made finding a place to live harder and more expensive, especially because there are not enough places for everyone to rent. Rent prices went up by 7.7% in just one year across the country. This highlights a big problem with not having enough affordable houses for everyone.
-((https://www.reuters.com/world/americas/why-is-canada-capping-foreign-students-who-will-be-impacted-2024-01-22/)
-The Canadian government, in response to these complex challenges, has initiated a policy intervention by imposing a two-year cap on the number of international students, a move that seeks to balance the educational sector's integrity with economic and housing market stability. This measure aims to relax the strain on housing problems and address concerns regarding the quality of education in an environment where certain educational institutions might not meet the expected standards. This policy change is significant, considering that international students have historically contributed substantially to the Canadian economy, with more than 1 million students contributing approximately C$22 billion annually.(https://www.bnnbloomberg.ca/student-visa-cap-to-hurt-economy-have-marginal-impact-on-housing-experts-warn-1.2025552) The cap, set at 350,000 students, alongside targeted closures in the private education sector, represents a pivotal moment in Canada's educational and immigration policy landscape.(https://economictimes.indiatimes.com/nri/study/canadas-cap-on-foreign-students-what-you-need-to-know-and-how-to-improve-your-odds-of-qualifying/articleshow/107250609.cms?from=mdr)
+Additionally, Canada's welcoming attitude towards international students, who come here for education and can work after graduating, has had an unexpected side effect. It's made finding a place to live harder and more expensive, especially because there are not enough places for everyone to rent. Rent prices went up by 7.7% in just one year across the country. This highlights a big problem with not having enough affordable houses for everyone [@reuters].
+The Canadian government, in response to these complex challenges, has initiated a policy intervention by imposing a two-year cap on the number of international students, a move that seeks to balance the educational sector's integrity with economic and housing market stability. This measure aims to relax the strain on housing problems and address concerns regarding the quality of education in an environment where certain educational institutions might not meet the expected standards. This policy change is significant, considering that international students have historically contributed substantially to the Canadian economy, with more than 1 million students contributing approximately C$22 billion annually [@bloom]. The cap, set at 350,000 students, alongside targeted closures in the private education sector, represents a pivotal moment in Canada's educational and immigration policy landscape [@abc].
 
 
 This report looks at how Canada is doing economically after the pandemic, focusing on how recent government decisions are helping or hurting the country's economy and prices. It talks about the good and bad sides of Canada's economic recovery, especially problems like expensive housing and rising prices caused by many international students coming to Canada. The study will predict what might happen because of government actions, like limiting the number of international students, and how these actions could affect the country's economy and prices. The estimand of the paper is GDP and inflation of 2024 after the cap on student visas.
@@ -54,7 +54,7 @@ The report also dives into the social and economic factors that are shaping Cana
 
 By putting all this information together, the report aims to share important findings on how immigration and education policies are affecting Canada's economy after the pandemic. It offers advice on how to balance boosting the economy, making sure people are doing well, and keeping the education system strong. The ultimate goal is to suggest ways Canada can use its policies to keep the economy going strong while making sure people have a good quality of life in the days after the pandemic.
 
-The remainder of this paper is structured as follows. @sec-data....
+The remainder of this paper is structured as follows. In the Data @sec-data, we denote the sources of the datasets utilized in the paper, the specific techniques we used to process them, and highlight their key factors. In the Model @sec-data1, we created different models to predict the effect of the cap on Canadian economy. In the Results @sec-data3 we dive into the results of the model and what key correlations we made from the variables studied in the paper. In the Discussion @sec-data4, we discussed the findings of modeling and predictions. We also address biases and weaknesses in the data that contribute to our findings, and how we approached analyzing those areas despite the limitations.
 
 
 
@@ -67,7 +67,7 @@ The datasets utilized in this study were sourced from various reputable sources,
 
 ### Gross Domestic Product (GDP): 
 
-GDP data was obtained from The World Bank of Data (https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=CA) which was then used, cleaned by macrotrends(https://www.macrotrends.net/global-metrics/countries/CAN/canada/gdp-gross-domestic-product). The economy's growth is quantified by changes in its output volume or the real incomes of its inhabitants. The gdp over the years can be seen in @fig-a. According to the 2008 United Nations System of National Accounts (2008 SNA), three main indicators are used to measure growth: the volume of gross domestic product (GDP), real gross domestic income, and real gross national income. GDP, a key metric, represents the total value added at constant prices by households, government, and industries operating within the economy. It encompasses all domestic production, regardless of whether the income benefits domestic or foreign entities. This dataset consisted of GDP ( Billions of US $), Per Capita (US $), and Annual % Change in GDP of Canada from 1960 - 2022. The GDP for the year 2023 was extracted separately from the World Bank of Data. 
+GDP data was obtained from the @worldbank which was then used, cleaned by @macro. The economy's growth is quantified by changes in its output volume or the real incomes of its inhabitants. The gdp over the years can be seen in @fig-a. According to the 2008 United Nations System of National Accounts (2008 SNA), three main indicators are used to measure growth: the volume of gross domestic product (GDP), real gross domestic income, and real gross national income. GDP, a key metric, represents the total value added at constant prices by households, government, and industries operating within the economy. It encompasses all domestic production, regardless of whether the income benefits domestic or foreign entities. This dataset consisted of GDP ( Billions of US $), Per Capita (US $), and Annual % Change in GDP of Canada from 1960 - 2022. The GDP for the year 2023 was extracted separately from the World Bank of Data. 
 
 
 ```{r}
@@ -90,19 +90,18 @@ GDP data was obtained from The World Bank of Data (https://data.worldbank.org/in
 
 ### Education Revenues: 
 
-Revenue data was sourced from Statistics Canada(https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3710002801). 
-This dataset is about the Canadian college revenues from the year 2001 to 2022. It contains total revenue that all the canadian college made each year including grants, fees, investment, etc.  This was measured using the Financial Information of Community Colleges and Vocational Schools Survey collected by the government. The Financial Information of Community Colleges and Vocational Schools Survey was developed to provide financial information (income and expenditures) on all non-degree-granting community colleges and public vocational schools in Canada and is conducted annually.
+Revenue data was sourced from @stat. This dataset is about the Canadian college revenues from the year 2001 to 2022. It contains total revenue that all the canadian college made each year including grants, fees, investment, etc.  This was measured using the Financial Information of Community Colleges and Vocational Schools Survey collected by the government. The Financial Information of Community Colleges and Vocational Schools Survey was developed to provide financial information (income and expenditures) on all non-degree-granting community colleges and public vocational schools in Canada and is conducted annually.
 
 
 
 ### Housing Price Indexes: 
 
-Housing price index data was obtained from Statistics Canada's Housing Price Index database(https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1810020501). It provides the changes in the housing price index monthly from the year 2000 to 2023. The total housing price index includes the changes in the land as well as the house price index. The New Housing Price Index (NHPI) is a monthly series that measures changes over time in the builders' selling prices of new residential houses, where detailed specifications pertaining to each house remain the same between two consecutive periods.
+Housing price index data was obtained from @housing Housing Price Index database. It provides the changes in the housing price index monthly from the year 2000 to 2023. The total housing price index includes the changes in the land as well as the house price index. The New Housing Price Index (NHPI) is a monthly series that measures changes over time in the builders' selling prices of new residential houses, where detailed specifications pertaining to each house remain the same between two consecutive periods.
 
 
 ### Consumption: 
 
-Consumption data was collected from Statistics Canada’s database. (https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3610060901&pickMembers%5B0%5D=1.1&cubeTimeFrame.startYear=2008&cubeTimeFrame.endYear=2023&referencePeriods=20080101%2C20230101). It included household actual final consumption for years 2008-2023 which included their consumption on food, drinks, entertainment, housing, education, health, and all the other expenditures. This information was collected using two different surveys, The Provincial and Territorial Gross Domestic Product (GDP) by Income and by Expenditure Accounts and The National Gross Domestic Product (GDP) by Income and by Expenditure Accounts. The Provincial and Territorial Gross Domestic Product (GDP) by Income and by Expenditure Accounts program produces annual estimates of selected aggregates of the National GDP by Income and by Expenditure Accounts, by province and territory: GDP, final domestic demand, household income, and government sector accounts. Secondly, The National Gross Domestic Product (GDP) by Income and Expenditure Accounts gives a comprehensive statistical picture of Canadian economic developments. The national gross domestic product by income and by expenditure is at the center of macroeconomic analysis and policy-making in Canada. 
+Consumption data was collected from @consumption database . It included household actual final consumption for years 2008-2023 which included their consumption on food, drinks, entertainment, housing, education, health, and all the other expenditures. This information was collected using two different surveys, The Provincial and Territorial Gross Domestic Product (GDP) by Income and by Expenditure Accounts and The National Gross Domestic Product (GDP) by Income and by Expenditure Accounts. The Provincial and Territorial Gross Domestic Product (GDP) by Income and by Expenditure Accounts program produces annual estimates of selected aggregates of the National GDP by Income and by Expenditure Accounts, by province and territory: GDP, final domestic demand, household income, and government sector accounts. Secondly, The National Gross Domestic Product (GDP) by Income and Expenditure Accounts gives a comprehensive statistical picture of Canadian economic developments. The national gross domestic product by income and by expenditure is at the center of macroeconomic analysis and policy-making in Canada. 
 
 Some of the important features of this dataset and their trends can be seen in @fig-d.
 
@@ -134,21 +133,45 @@ ggplot(merged_data, aes(x = Year)) +
 
 ### Exports and Imports:
 
-Data on exports and imports were sourced from Statistics Canada’s database(https://www150.statcan.gc.ca/n1/daily-quotidien/230509/cg-a001-eng.htm). It includes the total exports, imports, and trade balance of Canada from years 2008 to 2022. The year 2023 exports and imports were derived from the trading economics website(https://tradingeconomics.com/canada/exports#:~:text=April%20of%202024.-,Exports%20in%20Canada%20decreased%20to%2062284.80%20CAD%20Million%20in%20January,macro%20models%20and%20analysts%20expectations). 
+Data on exports and imports were sourced from @ex database. It includes the total exports, imports, and trade balance of Canada from years 2008 to 2022. The year 2023 exports and imports were derived from the trading economics website [@lol]. 
  This is measured through the Canadian International Merchandise Trade (CIMT) Program. The objective of this statistical program is to provide measures of Canada's international merchandise trade through the production of import and export statistics. Data are extracted from administrative files.
 In general, merchandise trade statistics are compiled from administrative records used by Customs agencies to facilitate and oversee the flow of goods across the frontier. 
 
 
 ### Unemployment Rates: 
 
-Unemployment rate data was obtained from Macrotrends database(https://www.macrotrends.net/global-metrics/countries/CAN/canada/unemployment-rate#:~:text=Canada%20unemployment%20rate%20for%202022,a%200.17%25%20decline%20from%202018) and Statista database(https://www.statista.com/statistics/578362/unemployment-rate-canada/#:~:text=In%202023%2C%205.4%20percent%20of,force%20in%20Canada%20was%20unemployed). The data consisted of the unemployment rate in Canada and the annual change in the unemployment rate from 1991 to 2023. These rates are sourced from the International Labour Organization, “ILO Modelled Estimates and Projections database ( ILOEST ), which has surveys and automated ways of calculating the unemployment rates of the labor force. 
+Unemployment rate data was obtained from @unemp and @statista database. The data consisted of the unemployment rate in Canada and the annual change in the unemployment rate from 1991 to 2023. These rates are sourced from the International Labour Organization, “ILO Modelled Estimates and Projections database ( ILOEST ), which has surveys and automated ways of calculating the unemployment rates of the labor force. 
+
+The unemployment data is used to predict inflation rate more closely and accurately as it is negatively correlated to the inflation rate. This is also known as the Phillips curve and can be seen in the @fig-f
+
+```{r}
+#| label: fig-f
+#| fig-cap: "Time Series Plot of Unemployment Rate and Inflation Rate"
+#| echo: false
+
+# First, reshape your data from wide to long format
+long_data <- merged_data %>%
+  gather(key = "variable", value = "value", Unemployment_rate, Inflation_Rate)
+
+# Now, plot with ggplot2 using the long format data
+ggplot(long_data, aes(x = Year, y = value, group = variable, color = variable)) +
+  geom_line() +
+  labs(
+    x = "Year",
+    y = "Rate",
+    color = "Indicator" # This will be the title of the legend
+  ) +
+  scale_color_manual(values = c("Unemployment_rate" = "blue", "Inflation_Rate" = "red")) +
+  theme(legend.position = "bottom")
+
+```
 
 
 
 ### Inflation: 
 
-Inflation data was sourced from consumer price index (CPI) reports published by the World Bank of data(https://data.worldbank.org/indicator/FP.CPI.TOTL.ZG?locations=CA-XN). It measures the rate of increase in the general price level of goods and services, reflecting changes in purchasing power and overall price stability, and uses the International Monetary Fund, International Financial Statistics and data files. The inflation rate is depicted from years 1960-2023.
-           Total Unique Persons in Canada: This dataset is sourced from the Government of Canada’s database(https://open.canada.ca/data/en/dataset/90115b00-f9b8-49e8-afa3-b4cff8facaee/resource/b663a97c-61d4-4e17-af51-0cba01ef3a44) which shows the Temporary Residents: Study Permit Holders of Canada from year 2000 to 2023.  This dataset is published by the  Immigration, Refugees, and Citizenship Canada. 
+Inflation data was sourced from consumer price index (CPI) reports published by the @inflation. It measures the rate of increase in the general price level of goods and services, reflecting changes in purchasing power and overall price stability, and uses the International Monetary Fund, International Financial Statistics and data files. The inflation rate is depicted from years 1960-2023.
+           Total Unique Persons in Canada: This dataset is sourced from the @dataa database which shows the Temporary Residents: Study Permit Holders of Canada from year 2000 to 2023.  This dataset is published by the  Immigration, Refugees, and Citizenship Canada. 
 
 ```{r}
 #| label: fig-i
@@ -240,27 +263,13 @@ head(merged_data, 6) %>%
   kable_styling(latex_options = "scale_down", full_width = F)
 ```
 
-```{r}
-#| label: fig-f
-#| fig-cap: Bills of penguins
-#| echo: false
 
-ggplot(merged_data, aes(x = Year)) +
-  geom_line(aes(y = Unemployment_rate), color = "blue") +
-  geom_line(aes(y = Inflation_Rate), color = "red") +
-  labs(title = "Time Series Plot of Unemployment Rate and Inflation Rate",
-       x = "Year",
-       y = "Rate")
+# Model{#sec-data1}
 
-```
-
-
-# Model
-
-# Model 1
+## Model 1
 The goal of our modeling strategy is to analyze the relationship between various economic indicators and the Gross Domestic Product (GDP) of Canada.
 
-## Model set-up
+### Model set-up
 
 Let's define the following variables:
 
@@ -286,18 +295,18 @@ y_i | \mu_i, \sigma &\sim \text{Normal}(\mu_i, \sigma^2) \\
 \end{align*}
 \
 
-We use the `rstanarm` package in R to fit the Bayesian generalized linear model.
+We use the `rstanarm` package in R to fit the Bayesian generalized linear model. The packages `pgfplots` [@pgfplots2020],`amsmath` [@amsmath] and `amssymb` [@amssymb] were used to write the document the model results and summary.
 
-## Model justification
+### Model justification
 
 We expect that changes in Total_Unique_Persons, Revenue, House_Price_Index, Consumption, Exports, Unemployment_rate, and Inflation_Rate will have an impact on the Gross Domestic Product (GDP) of Canada. Specifically, we anticipate a positive relationship between GDP and Total_Unique_Persons, Revenue, House_Price_Index, Consumption, and Exports, and a negative relationship between GDP and Unemployment_rate and Inflation_Rate. These relationships are hypothesized based on economic theory and empirical evidence.
 
 
-# Model 2
+## Model 2
 
 The goal of this modeling strategy is to analyze the relationship between various economic indicators and the inflation rate in Canada.
 
-## Model set-up
+### Model set-up
 
 Let's define the following variables:
 
@@ -323,13 +332,13 @@ y_i | \mu_i, \sigma &\sim \text{Normal}(\mu_i, \sigma^2) \\
 \end{align*}
 \
 
-We use the `stan_glm` function in R to fit the Bayesian generalized linear model.
+We use the `stan_glm` function in R to fit the Bayesian generalized linear model. The packages `pgfplots` [@pgfplots2020],`amsmath` [@amsmath] and `amssymb` [@amssymb] were used to write the document the model results and summary.
 
-## Model justification
+### Model justification
 
 We expect that changes in Total_Unique_Persons, GDP, Annual_Change_GDP, Revenue, House_Price_Index, Consumption, Exports, and Unemployment_rate will have an impact on the inflation rate in Canada. Specifically, we anticipate a positive relationship between inflation rate and Total_Unique_Persons, GDP, Revenue, House_Price_Index, Consumption, and Exports, and a negative relationship between inflation rate and Unemployment_rate. These relationships are hypothesized based on economic theory and empirical evidence.
 
-# Results
+# Results{#sec-data3}
 In this study, we sought to identify the factors that significantly contribute to the Gross Domestic Product (GDP) and Inflation Rate. We applied a Bayesian generalized linear model to a dataset encompassing a range of economic indicators over a period of years.
 
 
@@ -527,57 +536,11 @@ ggplot(plot_data, aes(x = Year, y = GDP)) +
 
 
 ```
-
 As seen, the GDP decreases quite drastically given the number of fewer students entering the country. 
 
-It is anticipated that the economy's supply and demand sides will be impacted by population loss. Generally speaking, a decline in population indicates a decrease in the labour supply (since the population is the source of labour) and a decrease in the labour input used in production; on the demand side, it indicates a decrease in the demand for housing, consumption goods and services, and investment because these items are demanded by people. It is anticipated that these adjustments will eventually cause the gross domestic product to decline.(https://www.nature.com/articles/s41599-023-02223-7)
-
-The @fig-graph1 shows the relationship between increasing GDP and house price index of Canada. This shows that as the GDP grows, the house price index of the country also increases as the linear relationship between these variables is very direct. This relationship means that any change in the GDP of the country would have an effect on the housing market as well. As the government places a cap on the student population entering the country and the GDP decreases, this entails the house price index to decrease as well. As quoted by __, "Rising house prices have a positive impact on real GDP through the consumption effect and the construction of new houses (housing investment). Basically, the strength of this positive effect relies on a large share of homeowners (especially regarding the consumption effect)." (https://typeset.io/papers/search-frictions-housing-prices-and-growth-2w5hf4izya)
-
-```{r}
-#| echo: false
-#| eval: true
-#| label: fig-graph1
-#| fig-cap: "Regression Plot: GDP vs. House Price Index"
-#| warning: false
-
-# Plotting the regression graph
-ggplot(merged_data, aes(x = GDP, y = House_Price_Index)) +
-  geom_point() +  # Add points
-  geom_smooth(method = "lm", se = FALSE, color = "blue") +  # Add regression line
-  labs(
-       x = "GDP", y = "House Price Index") +
-  theme_minimal()
-
-```
 
 
-This brings us to the second point about the effect that lower number of homeowners have on the housing market of the country. With the cap induced, there are smaller number of people entering the country and  contributing to the GDP of the country. The decline in the GDP contributes to the decline in the housing market prices which makes the house price index decrease as well and this can be seen in @fig-graph2. As
-Gerrard Flitti added that population decline would "absolutely" have negative economic impacts in the long term, with labor shortages leading to a decrease in GDP, inflation, and recession. "It just basically sinks the economy for years to come unless there's a massive increase in productivity," Filitti  said.(https://www.foxbusiness.com/media/impending-us-population-decline-could-lead-another-depression-more-inflation-experts)
-
-
-```{r}
-#| echo: false
-#| eval: true
-#| label: fig-graph2
-#| fig-cap: "Regression Relation Between House Price Index and Student Population"
-#| warning: false
-
-
-# Plotting the regression graph
-ggplot(merged_data, aes(x = Total_Unique_Persons, y = House_Price_Index)) +
-  geom_point() +  # Add points
-    geom_point(alpha = 0.5) +  # Add scatter points
-  scale_x_log10() + 
-  geom_smooth(method = "lm", se = FALSE, color = "blue") +  # Add regression line
-  labs(title = "",
-       x = "Total Student Visas", y = "House Price Index") +
-  theme_minimal()
-
-```
-
-The other aspect of the economic analysis for this study was the effect on inflation caused by the change in student visa numbers. The @fig-prediction1 shows the predicted inflation rate for 2024 to be `r predicted_inflation`. A decreasing population can lead to a shortage of labor, which in turn can drive up wages as employers compete for a smaller pool of workers. Higher wages can lead to higher production costs for goods and services, potentially causing cost-push inflation. This can be used to explain the extremely high inflation for 2024 being predicted. This notation can be seen in other countries like the US.  For instance, the Federal Reserve Bank of Atlanta points out that population aging is a significant factor contributing to labor shortages in the United States, which, in turn, has been fueling inflation. Since 2019, there's been a notable increase in the population of those aged 65 and older, while the population of prime-age workers (ages 25 to 54) has barely changed. This demographic shift towards an older population has led to a tighter labor market, as there are fewer younger people entering the workforce to replace retiring workers. Such a scenario can lead to wage inflation as employers compete for a smaller pool of workers, ultimately driving up production costs and contributing to cost-push inflation(https://www.atlantafed.org/economy-matters/economic-research/2023/01/12/we-re-getting-older-and-the-labor-market-shows-it). With a decrease of young population entering the labour force of Canada, the country can expect to experience a cost-push inflation.
-
+The other aspect of the economic analysis for this study was the effect on inflation caused by the change in student visa numbers. The @fig-prediction1 shows the predicted inflation rate for 2024 to be `r predicted_inflation`. This reveals that the inflation increases in the new settings and policies of the country implemented for 2024.
 
 ```{r}
 #| echo: false
@@ -619,8 +582,126 @@ ggplot(plot_data_inflation, aes(x = Year, y = Inflation_Rate)) +
 
 ```
 
+## Relation to House Price Index
 
-# Discussion
+The @fig-graph1 shows the relationship between increasing GDP and house price index of Canada. This shows that as the GDP grows, the house price index of the country also increases as the linear relationship between these variables is very direct.
+
+```{r}
+#| echo: false
+#| eval: true
+#| label: fig-graph1
+#| fig-cap: "Regression Plot: GDP vs. House Price Index"
+#| warning: false
+
+# Plotting the regression graph
+ggplot(merged_data, aes(x = GDP, y = House_Price_Index)) +
+  geom_point() +  # Add points
+  geom_smooth(method = "lm", se = FALSE, color = "blue") +  # Add regression line
+  labs(
+       x = "GDP", y = "House Price Index") +
+  theme_minimal()
+
+```
+
+
+
+@fig-graph2 shows the relationship between house price index and the influx of student population entering Canada over the years. It shows a linear relationship between the two such that house prices increases as the student population increases showing a strong positive correlation.
+
+```{r}
+#| echo: false
+#| eval: true
+#| label: fig-graph2
+#| fig-cap: "Regression Relation Between House Price Index and Student Population"
+#| warning: false
+
+
+# Plotting the regression graph
+ggplot(merged_data, aes(x = Total_Unique_Persons, y = House_Price_Index)) +
+  geom_point() +  # Add points
+    geom_point(alpha = 0.5) +  # Add scatter points
+  scale_x_log10() + 
+  geom_smooth(method = "lm", se = FALSE, color = "blue") +  # Add regression line
+  labs(title = "",
+       x = "Total Student Visas", y = "House Price Index") +
+  theme_minimal()
+
+```
+
+
+# Discussion{#sec-data4}
+
+## State Of Economy In Future
+
+
+As shown in the predictions of our model, it is anticipated that the economy's supply and demand sides will be impacted by population loss. Generally speaking, a decline in population indicates a decrease in the labour supply (since the population is the source of labour) and a decrease in the labour input used in production; on the demand side, it indicates a decrease in the demand for housing, consumption goods and services, and investment because these items are demanded by people. It is anticipated that these adjustments will eventually cause the gross domestic product to decline [@gdp].
+
+The @fig-graph1 shows the relationship between increasing GDP and house price index of Canada. This shows that as the GDP grows, the house price index of the country also increases as the linear relationship between these variables is very direct. This relationship means that any change in the GDP of the country would have an effect on the housing market as well. As the government places a cap on the student population entering the country and the GDP decreases, this entails the house price index to decrease as well. As quoted by @gross, "Rising house prices have a positive impact on real GDP through the consumption effect and the construction of new houses (housing investment). Basically, the strength of this positive effect relies on a large share of homeowners (especially regarding the consumption effect)."
+
+
+
+This brings us to the second point about the effect that lower number of homeowners have on the housing market of the country. With the cap induced, there are smaller number of people entering the country and  contributing to the GDP of the country. The decline in the GDP contributes to the decline in the housing market prices which makes the house price index decrease as well and this can be seen in @fig-graph2. As
+Gerrard Flitti added that population decline would "absolutely" have negative economic impacts in the long term, with labor shortages leading to a decrease in GDP, inflation, and recession. "It just basically sinks the economy for years to come unless there's a massive increase in productivity," Filitti  said [@fox].
+
+
+ A decreasing population can lead to a shortage of labor, which in turn can drive up wages as employers compete for a smaller pool of workers. Higher wages can lead to higher production costs for goods and services, potentially causing cost-push inflation. This can be used to explain the extremely high inflation for 2024 being predicted. 
+ 
+\
+\begin{tikzpicture}
+\begin{axis}[
+    axis lines = left,
+    xlabel = {Quantity of Labor},
+    ylabel = {Wage},
+    ymin=0, ymax=100,
+    xmin=0, xmax=50,
+    yticklabel style={font=\tiny},
+    xticklabel style={font=\tiny},
+    xtick={0,10,20,30,40,50},
+    ytick={0,20,40,60,80,100},
+    minor tick num=1,
+    grid=both,
+    grid style={line width=.1pt, draw=gray!10},
+    major grid style={line width=.2pt,draw=gray!50},
+    every axis plot post/.append style={thick},
+]
+
+% Supply curve S1
+\addplot [domain=0:50, color=red] {x + 10};
+\addlegendentry{S1}
+
+% Supply curve S2 (dashed)
+\addplot [domain=0:50, color=red, dashed] {x + 30};
+\addlegendentry{S2}
+
+% Demand curve D
+\addplot [domain=0:50, color=blue] {-x + 50};
+\addlegendentry{D}
+
+% Dotted lines for W1
+\addplot [dotted, thick] coordinates {(20,30) (20,0)};
+\addplot [dotted, thick] coordinates {(20,30) (0,30)};
+\node at (axis cs:20,30) [anchor=north east] {W1};
+
+% Dotted lines for W2
+\addplot [dotted, thick] coordinates {(10,40) (10,0)};
+\addplot [dotted, thick] coordinates {(10,40) (0,40)};
+\node at (axis cs:10,40) [anchor=north east] {W2};
+
+% Dotted lines for Q1
+\node at (axis cs:20,0) [anchor=north] {Q1};
+
+% Dotted lines for Q2
+\node at (axis cs:10,0) [anchor=north] {Q2};
+
+% Arrow for shift
+\draw[->, thick, red] (axis cs:30,40) -- (axis cs:30,60);
+
+\end{axis}
+\end{tikzpicture}
+\ 
+ 
+
+ This notation can be seen in other countries like the US.  For instance, the Federal Reserve Bank of Atlanta points out that population aging is a significant factor contributing to labor shortages in the United States, which, in turn, has been fueling inflation. Since 2019, there's been a notable increase in the population of those aged 65 and older, while the population of prime-age workers (ages 25 to 54) has barely changed. This demographic shift towards an older population has led to a tighter labor market, as there are fewer younger people entering the workforce to replace retiring workers. Such a scenario can lead to wage inflation as employers compete for a smaller pool of workers, ultimately driving up production costs and contributing to cost-push inflation [@wage]. With a decrease of young population entering the labour force of Canada, the country can expect to experience a cost-push inflation.
+
 
 ## Weaknesses and next steps
 
