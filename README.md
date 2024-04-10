@@ -4,6 +4,8 @@
 
 This paper studies the economical changes in Canada after the cap on student visas for 2024-2025 year to 360,000 visas. 
 
+This paper presents a detailed analysis of the economic impact resulting from the cap on student visas in Canada. Utilizing advanced econometric modeling, this study investigates the relationship between immigration policy and key economic indicators such as GDP and inflation rate. The research highlights critical insights into the short and long-term consequences of visa policies on Canada's economic health.
+
 To use this folder, click the green "Code" button", then "Download ZIP". Move the downloaded folder to where you want to work on your own computer, and then modify it to suit.
 
 
