@@ -63,16 +63,16 @@ simulated_data <- data.frame(
 head(simulated_data)
 
 # Create a scatter plot of Total_Unique_Persons against GDP
-plot(simulated_data$Total_Unique_Persons, simulated_data$GDP, 
-     xlab = "Total Unique Persons", ylab = "GDP", 
-     main = "Scatter plot of Total Unique Persons vs GDP",
-     col = "blue", pch = 16)
+plot(simulated_data$Total_Unique_Persons, simulated_data$GDP,
+  xlab = "Total Unique Persons", ylab = "GDP",
+  main = "Scatter plot of Total Unique Persons vs GDP",
+  col = "blue", pch = 16
+)
 
 
 # Create a scatter plot of Total_Unique_Persons against GDP
-plot(simulated_data$GDP, simulated_data$inflation, 
-     xlab = "GDP", ylab = "Inflation", 
-     main = "Scatter plot of Total Unique Persons vs GDP",
-     col = "blue", pch = 16)
-
-
+plot(simulated_data$GDP, simulated_data$inflation,
+  xlab = "GDP", ylab = "Inflation",
+  main = "Scatter plot of Total Unique Persons vs GDP",
+  col = "blue", pch = 16
+)

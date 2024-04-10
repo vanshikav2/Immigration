@@ -28,23 +28,23 @@ gdp$Year <- as.character(gdp$Year)
 
 # Extract only the first four characters from the Year column
 # Create a new row to add
-new_row <- c(2023, 2145.40)  # Replace your_value with the value you want to add for 2023
+new_row <- c(2023, 2145.40) # Replace your_value with the value you want to add for 2023
 
 # Add the new row to the end of the dataset
 gdp <- rbind(gdp, new_row)
 gdp$Year <- substr(gdp$Year, 1, 4)
 gdp$GDP <- gdp$GDP * 1356850000
-gdp$GDP <- gdp$GDP/1000000
+gdp$GDP <- gdp$GDP / 1000000
 print(tail(gdp, n = 10))
 
 # x1000
-revenue <- read_csv("data/raw_data/total_revenue.csv", skip =10)
-row_index <- 2  # For example, to include only the 5th row
+revenue <- read_csv("data/raw_data/total_revenue.csv", skip = 10)
+row_index <- 2 # For example, to include only the 5th row
 revenue <- revenue[row_index, , drop = FALSE]
 # Clean the revenue dataset
 revenue <- revenue %>%
   # Remove commas and convert to numeric for all columns except the first one
-  mutate(across(-1, ~as.numeric(gsub(",", "", .)))) %>%
+  mutate(across(-1, ~ as.numeric(gsub(",", "", .)))) %>%
   # Rename the first column
   rename(Types_of_revenues = `Types of revenues`) %>%
   # Convert horizontal to vertical and include only the second year
@@ -63,14 +63,14 @@ colnames(revenue) <- c("Year", "Revenue")
 
 
 house_price_index <- read_csv("data/raw_data/housing_price_index_canada.csv", skip = 9)
-row_index <- 2  # For example, to include only the 5th row
+row_index <- 2 # For example, to include only the 5th row
 house_price_index <- house_price_index[row_index, , drop = FALSE]
 # Clean the revenue dataset
 house_price_index <- house_price_index %>%
   # Remove commas and convert to numeric for all columns except the first one
-  mutate(across(-1, ~as.numeric(gsub(",", "", .)))) %>%
+  mutate(across(-1, ~ as.numeric(gsub(",", "", .)))) %>%
   # Rename the first column
-  #rename(Types_of_revenues = `Types of revenues`) %>%
+  # rename(Types_of_revenues = `Types of revenues`) %>%
   # Convert horizontal to vertical and include only the second year
   pivot_longer(cols = `New housing price indexes`, names_to = "Year", values_to = "Value") %>%
   # Extract only the second year from the "Year" column
@@ -115,14 +115,14 @@ unemployment
 
 # millions
 consumption <- read_csv("data/raw_data/consumption.csv", skip = 9)
-row_index <- 2  # For example, to include only the 5th row
+row_index <- 2 # For example, to include only the 5th row
 consumption <- consumption[row_index, , drop = FALSE]
 # Method 2: Using indexing
 consumption <- consumption[, !(names(consumption) == "Estimates")]
 # Clean the revenue dataset
 consumption <- consumption %>%
   # Remove commas and convert to numeric for all columns except the first one
-  mutate(across(-1, ~as.numeric(gsub(",", "", .)))) %>%
+  mutate(across(-1, ~ as.numeric(gsub(",", "", .)))) %>%
   # Rename the first column
   # Convert horizontal to vertical and include only the second year
   pivot_longer(cols = `Consumption category`, names_to = "Year", values_to = "Value") %>%
@@ -143,7 +143,7 @@ consumption <- head(consumption, -2)
 
 
 
-#in millions
+# in millions
 ex_and_imp <- read_csv("data/raw_data/exports.csv", skip = 1)
 colnames(ex_and_imp) <- c("Year", "Trade_Balance", "Exports", "Imports")
 # Remove the last two rows
@@ -153,7 +153,7 @@ ex_and_imp <- head(ex_and_imp, -2)
 
 
 immigrants <- read_excel("data/raw_data/EN_ODP-TR-Study-IS_CITZ_sign_date.xlsx", skip = 4)
-row_index <- 219  # For example, to include only the 5th row
+row_index <- 219 # For example, to include only the 5th row
 immigrants <- immigrants[row_index, , drop = FALSE]
 # Transpose the data
 immigrants <- t(immigrants)
@@ -165,9 +165,11 @@ year <- as.numeric(gsub("^([0-9]+),.*", "\\1", colnames(immigrants)))
 # Create a data frame
 data <- data.frame(
   Year = 2000:2022,
-  Total_Unique_Persons = c(122665, 145950, 158125, 164480, 168590, 170440, 172340, 179110, 184140, 204005, 
-                           225295, 248470, 274700, 301545, 330110, 352330, 410570, 490775, 567065, 638280, 
-                           528190, 621565, 807260)
+  Total_Unique_Persons = c(
+    122665, 145950, 158125, 164480, 168590, 170440, 172340, 179110, 184140, 204005,
+    225295, 248470, 274700, 301545, 330110, 352330, 410570, 490775, 567065, 638280,
+    528190, 621565, 807260
+  )
 )
 
 # Save as CSV
@@ -189,7 +191,7 @@ colnames(home) <- c("Year", "Homeownership Rate (%)")
 home <- home[-nrow(home), ]
 home <- home[-nrow(home), ]
 
-row_index <- 13  # For example, to include only the 5th row
+row_index <- 13 # For example, to include only the 5th row
 house_price <- house_price[row_index, , drop = FALSE]
 
 
@@ -200,8 +202,10 @@ house_price <- house_price[row_index, , drop = FALSE]
 # Set scipen option to disable scientific notation
 options(scipen = 999)
 # Merge datasets based on the 'Year' column
-merged_data <- Reduce(function(x, y) merge(x, y, by = "Year", all = TRUE), 
-                      list(data, gdp, revenue, house_price_index, consumption, ex_and_imp, unemployment, inflation))
+merged_data <- Reduce(
+  function(x, y) merge(x, y, by = "Year", all = TRUE),
+  list(data, gdp, revenue, house_price_index, consumption, ex_and_imp, unemployment, inflation)
+)
 
 # Replace NA values with 0
 merged_data[is.na(merged_data)] <- 0
@@ -217,7 +221,7 @@ merged_data$House_Price_Index[merged_data$Year == 2023] <- 124.4
 merged_data$Per_Capita[merged_data$Year == 2023] <- 55366.49
 merged_data$Annual_Change_GDP[merged_data$Year == 2023] <- 1.5
 merged_data$Revenue[merged_data$Year == 2023] <- 15151.575
-merged_data$Imports[merged_data$Year == 2023] <- 64235.20	
+merged_data$Imports[merged_data$Year == 2023] <- 64235.20
 merged_data$Exports[merged_data$Year == 2023] <- 63372.40
 merged_data$Trade_Balance[merged_data$Year == 2023] <- -862.80
 merged_data$Unemployment_rate[merged_data$Year == 2023] <- 5.4
@@ -232,8 +236,8 @@ write.csv(merged_data, "data/analysis_data/merged_data.csv", row.names = FALSE)
 
 #### Save data ####
 write_csv(inflation, "data/analysis_data/inflation.csv")
-#write_csv(home, "data/analysis_data/home.csv")
-#write.csv(house_price, "data/analysis_data/house_prices.csv")
+# write_csv(home, "data/analysis_data/home.csv")
+# write.csv(house_price, "data/analysis_data/house_prices.csv")
 write.csv(gdp, "data/analysis_data/gdp.csv")
 write.csv(revenue, "data/analysis_data/revenue.csv")
 write.csv(house_price_index, "data/analysis_data/house_price_index.csv")

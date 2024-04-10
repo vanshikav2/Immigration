@@ -1,12 +1,9 @@
 #### Preamble ####
-# Purpose: Models... [...UPDATE THIS...]
-# Author: Rohan Alexander [...UPDATE THIS...]
-# Date: 11 February 2023 [...UPDATE THIS...]
-# Contact: rohan.alexander@utoronto.ca [...UPDATE THIS...]
+# Purpose: Models the cleaned file
+# Author: Vanshika Vanshika
+# Date: 4 April 2024
+# Contact: vanshika.vanshika@gmail.com
 # License: MIT
-# Pre-requisites: [...UPDATE THIS...]
-# Any other information needed? [...UPDATE THIS...]
-
 
 #### Workspace setup ####
 library(tidyverse)
@@ -16,17 +13,19 @@ library(rstanarm)
 
 # MODEL 1
 # Load the dataset
-dataset <- read.csv("data/analysis_data/merged_data.csv")  # Replace "your_dataset.csv" with the path to your dataset
+dataset <- read.csv("data/analysis_data/merged_data.csv") # Replace "your_dataset.csv" with the path to your dataset
 
 # Remove predictors with high VIF values
-dataset <- subset(dataset, select = -c( Per_Capita ,Trade_Balance, Imports,Annual_Change_unemployment, `Annual_Change_Inflation`))
+dataset <- subset(dataset, select = -c(Per_Capita, Trade_Balance, Imports, Annual_Change_unemployment, `Annual_Change_Inflation`))
 
 # Fit a Bayesian generalized linear model to predict GDP
-gdp_model <- stan_glm(GDP ~ Total_Unique_Persons + Annual_Change_GDP + Revenue + 
-                    House_Price_Index + Consumption  + Exports  +
-                    Unemployment_rate  + `Inflation_Rate`,
-                  data = dataset, 
-                  family = gaussian())
+gdp_model <- stan_glm(
+  GDP ~ Total_Unique_Persons + Annual_Change_GDP + Revenue +
+    House_Price_Index + Consumption + Exports +
+    Unemployment_rate + `Inflation_Rate`,
+  data = dataset,
+  family = gaussian()
+)
 
 # Summary of the model
 summary(gdp_model)
@@ -59,17 +58,19 @@ saveRDS(
 
 
 # MODEL 2
-dataset <- read.csv("data/analysis_data/merged_data.csv")  # Replace "your_dataset.csv" with the path to your dataset
+dataset <- read.csv("data/analysis_data/merged_data.csv") # Replace "your_dataset.csv" with the path to your dataset
 
 # Remove predictors with high VIF values
-dataset <- subset(dataset, select = -c( Per_Capita ,Trade_Balance, Imports,Annual_Change_unemployment, `Annual_Change_Inflation`))
+dataset <- subset(dataset, select = -c(Per_Capita, Trade_Balance, Imports, Annual_Change_unemployment, `Annual_Change_Inflation`))
 
 # Fit a Bayesian generalized linear model to predict GDP
-model <- stan_glm(Inflation_Rate ~ Total_Unique_Persons + GDP + Annual_Change_GDP + Revenue + 
-                    House_Price_Index + Consumption  + Exports  +
-                    Unemployment_rate,
-                  data = dataset, 
-                  family = gaussian())
+model <- stan_glm(
+  Inflation_Rate ~ Total_Unique_Persons + GDP + Annual_Change_GDP + Revenue +
+    House_Price_Index + Consumption + Exports +
+    Unemployment_rate,
+  data = dataset,
+  family = gaussian()
+)
 
 # Summary of the model
 summary(model)
@@ -87,7 +88,6 @@ new_data <- data.frame(
   Consumption = 63372.4,
   Exports = 779216,
   Unemployment_rate = 5.400
-  
 )
 
 predicted_inflation <- predict(model, newdata = new_data)
@@ -104,24 +104,24 @@ saveRDS(
 
 # # MODEL 3
 # dataset <- read.csv("data/analysis_data/merged_data.csv")  # Replace "your_dataset.csv" with the path to your dataset
-# 
+#
 # # Remove predictors with high VIF values
 # dataset <- subset(dataset, select = -c( Per_Capita ,Trade_Balance, Imports,Annual_Change_unemployment, `Annual_Change_Inflation`))
-# 
+#
 # # Fit a Bayesian generalized linear model to predict GDP
-# model <- stan_glm( House_Price_Index ~ Total_Unique_Persons + GDP + Annual_Change_GDP + Revenue + 
+# model <- stan_glm( House_Price_Index ~ Total_Unique_Persons + GDP + Annual_Change_GDP + Revenue +
 #                     Consumption  + Exports  +
 #                     Unemployment_rate, Inflation_Rate,
-#                   data = dataset, 
+#                   data = dataset,
 #                   family = gaussian())
-# 
+#
 # # Summary of the model
 # summary(model)
-# 
+#
 # # Assess model diagnostics (optional)
 # plot(model)
-# 
-# 
+#
+#
 # new_data <- data.frame(
 #   Total_Unique_Persons = 360000, # Cap on Total_Unique_Persons
 #   GDP = 2910986,
@@ -132,7 +132,7 @@ saveRDS(
 #   Unemployment_rate = 5.400,
 #   Inflation_Rate = 6.185203
 # )
-# 
+#
 # predicted_inflation <- predict(model, newdata = new_data)
 # print(predicted_inflation)
 # # #### Save model ####
@@ -140,4 +140,3 @@ saveRDS(
 #   model,
 #   file = "models/inflation_model.rds"
 # )
-
