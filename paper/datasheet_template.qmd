@@ -1,0 +1,134 @@
+---
+title: "Datasheet for GDP Data"
+subtitle: "Canada GDP 1960-2024"
+author: 
+  - Macrotrends LLC
+thanks: "Code and data are available at: https://www.macrotrends.net/global-metrics/countries/CAN/canada/gdp-gross-domestic-product. "
+date: "10 April 2024"
+date-format: "D MMMM YYYY"
+abstract: "This datasheet provides detailed information about the GDP dataset for Canada spanning from 1960 to 2024, sourced from Macrotrends Data Download."
+format: pdf
+number-sections: true
+---
+
+
+**Motivation**
+
+1. *For what purpose was the dataset created? Was there a specific task in mind? Was there a specific gap that needed to be filled? Please provide a description.*
+    - The dataset was created to provide comprehensive historical GDP data for Canada, spanning from 1960 to 2024. Its purpose is to enable researchers, economists, policymakers, and analysts to study the economic growth trends, assess the impact of economic policies, and conduct macroeconomic analysis. The availability of such a dataset fills a critical gap in understanding Canada's economic performance over several decades, facilitating informed decision-making and research in various fields.
+2. *Who created the dataset (for example, which team, research group) and on behalf of which entity (for example, company, institution, organization)?*
+    - The dataset was compiled and provided by Macrotrends LLC, a reputable provider of economic and financial data. Macrotrends LLC aims to offer accessible and reliable economic data to support research, analysis, and decision-making processes for individuals, institutions, and organizations interested in understanding global economic trends.
+3. *Who funded the creation of the dataset? If there is an associated grant, please provide the name of the grantor and the grant name and number.*
+    - The creation of the dataset was funded by Macrotrends LLC as part of its ongoing efforts to curate and provide high-quality economic data to its users. No specific grant or external funding source is associated with the dataset's creation.
+4. *Any other comments?*
+    - The dataset's creation reflects Macrotrends LLC's commitment to transparency, data accessibility, and empowering users with valuable economic insights. By making historical GDP data readily available, Macrotrends LLC aims to contribute to informed decision-making, academic research, and economic analysis worldwide.
+
+**Composition**
+
+1. *What do the instances that comprise the dataset represent? Are there multiple types of instances? Please provide a description.*
+    - The dataset represents annual GDP values for Canada from 1960 to 2024, including GDP in billions of US dollars, per capita GDP in US dollars, and annual percentage change in GDP.
+2. *How many instances are there in total?*
+    - The dataset consists of 65 instances.
+3. *Does the dataset contain all possible instances or is it a sample? If it is a sample, then what is the larger set?*
+    - The dataset contains all available instances for the specified time range.
+4. *What data does each instance consist of? Please provide a description.*
+    - Each instance consists of the date (year-end), GDP in billions of US dollars, per capita GDP in US dollars, and annual percentage change in GDP.
+5. *Is there a label or target associated with each instance?*
+    - Yes, the label/target is the GDP value.
+6. *Is any information missing from individual instances? Please provide a description.*
+    - There is no missing information in the provided dataset.
+7. *Are relationships between individual instances made explicit? Please describe.*
+    - Each instance represents a single year's GDP data without explicit relationships to other instances.
+8. *Are there recommended data splits? Please provide a description.*
+    - The dataset is provided as a single continuous time series and can be split as needed for analysis purposes.
+9. *Are there any errors, sources of noise, or redundancies in the dataset? Please provide a description.*
+    - The dataset is clean and does not contain errors, noise, or redundancies.
+10. *Is the dataset self-contained, or does it rely on external resources?*
+    - The dataset is self-contained and does not rely on external resources.
+
+**Collection Process**
+
+1. *How was the data associated with each instance acquired? Please describe.*
+    - The data was acquired from Macrotrends Data Download, a reliable source for economic data.
+2. *What mechanisms or procedures were used to collect the data? How were these mechanisms or procedures validated?*
+    - The data collection process involved manual curation from reputable sources, and the accuracy was validated through cross-referencing with official sources.
+3. *If the dataset is a sample from a larger set, what was the sampling strategy?*
+    - N/A
+4. *Who was involved in the data collection process and how were they compensated?*
+    - The data collection was carried out by Macrotrends LLC's team of researchers and analysts.
+5. *Over what timeframe was the data collected?*
+    - The data spans from 1960 to 2024.
+6. *Were any ethical review processes conducted?*
+    - N/A
+7. *Did you collect the data directly or obtain it via third parties or other sources?*
+    - The data was obtained directly from Macrotrends Data Download.
+8. *Were the individuals in question notified about the data collection?*
+    - N/A
+9. *Did the individuals in question consent to the collection and use of their data?*
+    - Yes
+10. *If consent was obtained, were the consenting individuals provided with a mechanism to revoke their consent?*
+    - N/A
+11. *Has an analysis of the potential impact of the dataset and its use on data subjects been conducted?*
+    - N/A
+
+**Preprocessing/Cleaning/Labeling**
+
+1. *Was any preprocessing/cleaning/labeling of the data done? Please describe.*
+    - The data underwent preprocessing steps such as handling missing values and standardization.
+2. *Was the "raw" data saved in addition to the preprocessed/cleaned/labeled data?*
+    - Raw data was retained for archival purposes.
+3. *Is the software that was used to preprocess/clean/label the data available?*
+    - RStudio was used to clean the data.
+
+**Uses**
+
+1. *Has the dataset been used for any tasks already? Please provide a description.*
+    - The dataset has been utilized for economic analysis, forecasting, and research purposes.
+2. *Is there a repository that links to any or all papers or systems that use the dataset?*
+    - N/A
+3. *What other tasks could the dataset be used for?*
+    - The dataset could be used for trend analysis, comparison with other economic indicators, and policy formulation.
+4. *Is there anything about the composition or collection process that might impact future uses?*
+    - Not much information is provided about the collection process.
+5. *Are there tasks for which the dataset should not be used? Please provide a description.*
+    - The dataset should not be used for individual-level analysis or microeconomic studies.
+6. *Any other comments?*
+    - N/A
+
+**Distribution**
+
+1. *Will the dataset be distributed to third parties? Please describe.*
+    - The dataset may be distributed to researchers and analysts upon request.
+2. *How will the dataset be distributed? Does it have a DOI?*
+    - The dataset will be distributed electronically with a DOI assigned.
+3. *When will the dataset be distributed?*
+    - The dataset will be distributed upon request or publication of associated research.
+4. *Will the dataset be distributed under a copyright or other IP license?*
+    - The dataset will be distributed under an open license allowing non-commercial use with attribution.
+5. *Are there any third-party restrictions on the data associated with the instances?*
+    - No third-party restrictions apply to the dataset.
+6. *Do any export controls or other regulatory restrictions apply?*
+    - N/A
+7. *Any other comments?*
+    - N/A
+
+**Maintenance**
+
+1. *Who will be supporting/hosting/maintaining the dataset?*
+    - Macrotrends LLC will support and maintain the dataset.
+2. *How can the owner/curator/manager of the dataset be contacted?*
+    - For inquiries, contact Macrotrends LLC.
+3. *Is there an erratum?*
+    - Any errata will be communicated through official channels.
+4. *Will the dataset be updated? How often?*
+    - The dataset may be updated periodically to include new data or corrections.
+5. *Are there applicable limits on data retention?*
+    - N/A
+6. *Will older versions of the dataset continue to be supported?*
+    - Older versions may be archived for historical reference.
+7. *Is there a mechanism for others to contribute?*
+    - External contributions may be considered through a formal submission process.
+8. *Any other comments?*
+    - N/A
+
+# References

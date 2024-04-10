@@ -8,6 +8,7 @@
 #### Workspace setup ####
 library(tidyverse)
 library(readxl)
+library(arrow)
 
 #### Clean data ####
 inflation <- read_csv("data/raw_data/canada-inflation-rate-cpi.csv", skip = 16)
@@ -240,3 +241,28 @@ write.csv(unemployment, "data/analysis_data/unemployment.csv")
 write.csv(consumption, "data/analysis_data/consumption.csv")
 write.csv(ex_and_imp, "data/analysis_data/ex_and_imp.csv")
 
+
+
+# Save merged_data as Parquet
+write_parquet(merged_data, "data/analysis_data/merged_data.parquet")
+
+# Save inflation data as Parquet
+write_parquet(inflation, "data/analysis_data/inflation.parquet")
+
+# Save gdp data as Parquet
+write_parquet(gdp, "data/analysis_data/gdp.parquet")
+
+# Save revenue data as Parquet
+write_parquet(revenue, "data/analysis_data/revenue.parquet")
+
+# Save house_price_index data as Parquet
+write_parquet(house_price_index, "data/analysis_data/house_price_index.parquet")
+
+# Save unemployment data as Parquet
+write_parquet(unemployment, "data/analysis_data/unemployment.parquet")
+
+# Save consumption data as Parquet
+write_parquet(consumption, "data/analysis_data/consumption.parquet")
+
+# Save ex_and_imp data as Parquet
+write_parquet(ex_and_imp, "data/analysis_data/ex_and_imp.parquet")
