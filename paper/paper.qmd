@@ -6,7 +6,7 @@ author:
 thanks: "Code and data are available at: https://github.com/vanshikav2/Immigration."
 date: today
 date-format: long
-abstract: "This paper investigates the economic repercussions of Canada's policy to limit the number of international student visas. It studies the effects of such a policy on the country's GDP and inflation, providing predictive insights based on different economic models. The findings reveal a considerable decline in GDP and a simultaneous rise in inflation rates, anticipating a challenging economic landscape ahead. These results signifies the important role of international students in the Canadian economy and hint at the potential for policy refinement to balance economic growth with the complexities of the housing market and education sector. The study serves as a call to policymakers to consider the far-reaching implications of immigration policies on the nation's economic well-being."
+abstract: "This paper investigates the economic repercussions of Canada's policy to limit the number of international student visas. It studies the effects of such a policy on the country's GDP and inflation, providing predictive insights based on different economic models such as the Bayesian Generalized Linear Model (GLM) with a Gaussian distribution. The findings reveal a considerable decline in GDP and a simultaneous rise in inflation rates, anticipating a challenging economic landscape ahead. These results signifies the important role of international students in the Canadian economy and hint at the potential for policy refinement to balance economic growth with the complexities of the housing market and education sector. The study serves as a call to policymakers to consider the far-reaching implications of immigration policies on the nation's economic well-being."
 header-includes:
   - \usepackage{amsmath}
   - \usepackage{amssymb}
@@ -362,7 +362,7 @@ inflation_model <-
 #| echo: false
 #| eval: true
 #| label: tbl-modelresults
-#| tbl-cap: "Explanatory models of flight time based on wing width and wing length"
+#| tbl-cap: "Explanatory models of GDP"
 #| warning: false
 
 modelsummary::modelsummary(
@@ -377,7 +377,7 @@ modelsummary::modelsummary(
 #| echo: false
 #| eval: true
 #| label: tbl-modelresultss
-#| tbl-cap: "Explanatory models of flight time based on wing width and wing length"
+#| tbl-cap: "Explanatory models of Inflation"
 #| warning: false
 
 
@@ -413,7 +413,7 @@ The plot @fig-modelresultsss indicates that none of the predictors show a statis
 #| echo: false
 #| eval: true
 #| label: fig-modelresultsss
-#| fig-cap: "Explanatory models of flight time based on wing width and wing length"
+#| fig-cap: "Dependent Variables Plot Summary"
 #| warning: false
 
 # Generate plots for GDP model
@@ -445,7 +445,7 @@ Similar to the first, @fig-modelresultssss plot also suggests that none of the v
 #| echo: false
 #| eval: true
 #| label: fig-modelresultssss
-#| fig-cap: "Explanatory models of flight time based on wing width and wing length"
+#| fig-cap: "Dependent Variables Plot Summary"
 #| warning: false
 
 # Generate plots for inflation model
@@ -705,15 +705,16 @@ Gerrard Flitti added that population decline would "absolutely" have negative ec
 \ 
  
 
- This notation can be seen in other countries like the US.  For instance, the Federal Reserve Bank of Atlanta points out that population aging is a significant factor contributing to labor shortages in the United States, which, in turn, has been fueling inflation. Since 2019, there's been a notable increase in the population of those aged 65 and older, while the population of prime-age workers (ages 25 to 54) has barely changed. This demographic shift towards an older population has led to a tighter labor market, as there are fewer younger people entering the workforce to replace retiring workers. Such a scenario can lead to wage inflation as employers compete for a smaller pool of workers, ultimately driving up production costs and contributing to cost-push inflation [@wage]. With a decrease of young population entering the labour force of Canada, the country can expect to experience a cost-push inflation.
+ This notation can be seen in other countries like the US.  For instance, the Federal Reserve Bank of Atlanta points out that population aging is a significant factor contributing to labor shortages in the United States, which, in turn, has been fueling inflation. Since 2019, there's been a notable increase in the population of those aged 65 and older, while the population of prime-age workers (ages 25 to 54) has barely changed. This demographic shift towards an older population has led to a tighter labor market, as there are fewer younger people entering the workforce to replace retiring workers. Such a scenario can lead to wage inflation as employers compete for a smaller pool of workers, ultimately driving up production costs and contributing to cost-push inflation [@wage]. With a decrease of young population entering the labor force of Canada, the country can expect to experience a cost-push inflation.
 
 
 ## Weaknesses and next steps
 
-The dataset used in this analysis may be subject to various biases, which could affect the validity and generalizability of the findings. There is measurement bias in the dataset from inaccuracies or inconsistencies in data collection methods, such as self-reporting or sampling errors. The dataset also a collection of different datasets with different units of measurements and converting them into one unit dataset arises measurement bias. Also alot of values of different years were missing for different variables of the dataset that were sourced from other datasets and websites, which creates biases. Furthermore, the analysis process itself is susceptible to weaknesses such as model assumptions, variable selection bias, and overfitting. Model assumptions may not be met by the data, leading to biased estimates or incorrect conclusions. Variable selection bias could influence results depending on which variables are included or excluded from the analysis. Overfitting may occur if complex models fit the training data too closely but generalize poorly to new data. These weaknesses highlight the importance of careful consideration and transparency throughout the research process to mitigate biases and ensure the reliability of the findings.
+The dataset used in this analysis may be subject to various biases, which could affect the validity and generalizability of the findings. There is measurement bias in the dataset from inaccuracies or inconsistencies in data collection methods, such as self-reporting or sampling errors. The dataset also a collection of different datasets with different units of measurements and converting them into one unit dataset arises measurement bias. Also a lot of values of different years were missing for different variables of the dataset that were sourced from other datasets and websites, which creates biases. Furthermore, the analysis process itself is susceptible to weaknesses such as model assumptions, variable selection bias, and overfitting. Model assumptions may not be met by the data, leading to biased estimates or incorrect conclusions. Variable selection bias could influence results depending on which variables are included or excluded from the analysis. Overfitting may occur if complex models fit the training data too closely but generalize poorly to new data. These weaknesses highlight the importance of careful consideration and transparency throughout the research process to mitigate biases and ensure the reliability of the findings.
 
 
-In future research, it would be beneficial to address several avenues for further exploration and refinement. Firstly, expanding the dataset to include additional relevant variables could enhance the depth of the analysis and provide a better understanding of the factors influencing economic indicators. Additionally, conducting longitudinal studies to track changes over time and incorporating dynamic modeling techniques could offer insights into the evolving nature of economic relationships. Furthermore, considering the impact of external factors such as policy interventions, socio-economic trends, and global events on the studied phenomena could enrich the analysis and provide valuable insights for policymakers and practitioners. Overall, this cap of 360,000 on international students for two years is a big step taken by the governnment and its economic effects need to studied furthur to help decrease possible losses in different sector of  the economy.
+## Future Research
+In future research, it would be beneficial to address several avenues for further exploration and refinement. Firstly, expanding the dataset to include additional relevant variables could enhance the depth of the analysis and provide a better understanding of the factors influencing economic indicators. Additionally, conducting longitudinal studies to track changes over time and incorporating dynamic modeling techniques could offer insights into the evolving nature of economic relationships. Furthermore, considering the impact of external factors such as policy interventions, socio-economic trends, and global events on the studied phenomena could enrich the analysis and provide valuable insights for policymakers and practitioners. Overall, this cap of 360,000 on international students for two years is a big step taken by the government and its economic effects need to studied further to help decrease possible losses in different sector of  the economy.
 
 \newpage
 
@@ -738,7 +739,7 @@ In @fig-ppcheckandposteriorvsprior-2 we compare the posterior with the prior. Th
 #| label: fig-ppcheckandposteriorvsprior
 #| layout-ncol: 2
 #| fig-cap: "Examining how the model fits, and is affected by, the data"
-#| fig-subcap: ["Posterior prediction check", "Comparing the posterior with the prior"]
+#| fig-subcap: ["Posterior prediction check for GDP", "Posterior prediction check for Inflation"]
 
 pp_check(gdp_model) +
   theme_classic() +
